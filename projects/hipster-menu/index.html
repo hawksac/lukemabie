@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:">
+<title>Hipster Menu Generator · Luke Mabie</title>
+<meta name="description" content="Every menu obeys the Laws of Artisanal Dining. A logic program written for clingo, running in your browser, writes a new one each time.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=Lora:ital@0;1&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav" aria-label="Main">
+    <a class="site-brand" href="../../">Luke Mabie</a>
+    <a class="back" href="../../#workbench">Workbench</a>
+  </nav>
+
+  <header>
+    <span class="eyebrow">Answer set programming · clingo running in your browser</span>
+    <h1>Hipster Menu Generator</h1>
+    <p class="lede">Seven Laws of Artisanal Dining, written as logic. Every menu clingo finds obeys all of them: ramps are mandatory, nothing appears twice, and the more pretentious a dish is, the more it costs.</p>
+  </header>
+
+  <div class="toolbar">
+    <button type="button" class="btn" id="new">New menu</button>
+    <button type="button" class="btn ghost" id="max">Most pretentious</button>
+    <button type="button" class="btn ghost" id="stop" hidden>Stop</button>
+    <span class="spacer"></span>
+    <button type="button" class="smallbtn" id="share" hidden>Copy link</button>
+  </div>
+  <div class="status" id="status" aria-live="polite"><span class="pill busy">Loading clingo</span></div>
+
+  <article class="menu" id="menu" aria-live="off" hidden></article>
+
+  <section class="enc" aria-labelledby="laws-h">
+    <div class="rules">
+      <h2 id="laws-h">The Laws of Artisanal Dining</h2>
+      <p>The program never says how to write a menu. It lists the vocabulary, lets clingo choose, and forbids anything that breaks a law:</p>
+      <ol>
+        <li><b>No ingredient appears twice</b> anywhere on the menu.</li>
+        <li><b>Every dish has a buzzword</b>: foraged, pickled, heritage, fermented, house-made, or local. <span class="hint">On the menu, the buzzword is <span class="buzz-sample">underlined</span>.</span></li>
+        <li><b>Ramps are mandatory.</b></li>
+        <li><b>At most one dish is deconstructed.</b> We're not animals.</li>
+        <li><b>Every large plate costs more than every small plate.</b></li>
+        <li><b>Each cocktail gets its own</b> spirit, vessel, garnish and name, and at least one involves smoke.</li>
+        <li><b>Prices go up with pretension:</b> $8, $18 or $11 plus the pretension of everything on the plate or in the glass.</li>
+      </ol>
+      <p class="hint"><b>Most pretentious</b> adds one line, a <code>#maximize</code> over total pretension, and shows each better menu as clingo finds it. Proving nothing beats the best one takes far longer than anyone should wait, so it stops after a few seconds.</p>
+    </div>
+    <div style="min-width:0">
+      <div class="codehead">
+        <div class="row" role="group" aria-label="Code view">
+          <button type="button" class="smallbtn" data-file="menu.lp" aria-pressed="true">menu.lp</button>
+          <button type="button" class="smallbtn" data-file="maximize.lp" aria-pressed="false">maximize.lp</button>
+        </div>
+        <a class="smallbtn" id="dl" href="menu.lp" download>Download</a>
+      </div>
+      <pre id="code" tabindex="0"></pre>
+    </div>
+  </section>
+
+  <footer>Inspired by the 2015 Brooklyn Bar Menu Generator. Built with clingo (Potassco) via clingo-wasm, the same solver behind the <a href="../garden-planner/">garden planner</a> and the <a href="../whodunit/">whodunit</a>.</footer>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

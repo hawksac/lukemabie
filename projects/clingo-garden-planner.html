@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clingo Garden Planner · Luke Mabie</title>
+  <meta name="description" content="A 60-line answer set program that plans a raised garden bed across three seasons, and what it taught me about logic programming in everyday apps.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap" style="gap: 64px">
+
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="../">Luke Mabie</a>
+    <div class="nav-links"><a href="../#projects">← All projects</a></div>
+  </nav>
+
+  <main id="main" style="display: contents">
+
+  <header class="project-head">
+    <span class="eyebrow">Clingo · Answer set programming · Runs in the browser</span>
+    <h1>Clingo Garden Planner</h1>
+    <p class="lede">Mark where the sun falls on your bed, pick what you want to grow, and a roughly 60-line logic program plans every square foot for spring, summer, and fall.</p>
+    <div class="chips">
+      <span class="chip">clingo</span>
+      <span class="chip">WebAssembly</span>
+      <span class="chip">constraints + optimization</span>
+      <a class="btn" href="garden-planner/">Plan a bed →</a>
+    </div>
+  </header>
+
+  <div class="prose-grid">
+    <section class="prose">
+      <h2>Why I built it</h2>
+      <p>I'm a little obsessed with Clingo. You don't tell it how to solve a problem; you describe what a good answer looks like, and it finds one. A garden was the perfect excuse: every gardener already knows the rules (tomatoes want sun, beans and onions don't get along, don't plant the same family in the same spot twice), but juggling them all by hand is miserable.</p>
+    </section>
+    <section class="prose">
+      <h2>What it does</h2>
+      <p>The page turns your bed and crop list into facts and hands them to clingo, along with rules for sun needs, shade from tall crops, bad companions, spacing for sprawlers, and crop rotation across seasons. Then it searches for the plan with the most good neighbors and proves when it can't find a better one.</p>
+    </section>
+  </div>
+
+<pre class="code" style="background: var(--surface); border: 1px solid var(--line); padding: 18px 20px; font-size: 13px"><span class="c">% a crop never sits in less light than it needs</span>
+:- plant(X,Y,S,C), needs(C,L), sun(X,Y,S,L2), L2 &lt; L.
+
+<span class="c">% bad companions are never neighbors, diagonals included</span>
+:- plant(X,Y,S,A), plant(X2,Y2,S,B), adj(X,Y,X2,Y2), bad(A,B).
+
+<span class="c">% the same family never follows itself in a square</span>
+:- plant(X,Y,S,A), plant(X,Y,S+1,B), family(A,F), family(B,F).</pre>
+  <p class="solver-note" style="margin-top: -48px"><span class="todo">Simplified for reading. Swap in the real lines from your encoding.</span></p>
+
+  <div class="prose-grid">
+    <section class="prose">
+      <h2>What was hard</h2>
+      <p>Thinking in constraints instead of steps. My instinct as an engineer is to write the loop; in Clingo you write what must be true and let the solver find it. <span class="todo">[Add the moments where it clicked, or where grounding blew up.]</span></p>
+    </section>
+    <section class="prose">
+      <h2>What I think now</h2>
+      <p>The power-to-code ratio is unreal: a few dozen lines replace what would be hundreds of lines of hand-written search. What I still don't understand well is how logic programs like this get woven into ordinary applications. That's the question I'm chasing next, and it connects straight back to the rule engines I've built for pricing.</p>
+    </section>
+  </div>
+
+  <section class="band" aria-labelledby="cta-h">
+    <div><h2 id="cta-h">Have a scheduling or rules problem that feels too tangled?</h2></div>
+    <a class="btn" href="mailto:hello@lukemabie.com?subject=Rules%20%2F%20logic%20project">Get in touch</a>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <a href="the-buck-ends-here.html">The Buck Ends Here →</a>
+    <span>© Luke Mabie</span>
+  </footer>
+</div>
+</body>
+</html>

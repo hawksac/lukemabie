@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:">
+<title>Block Party Whodunit · Luke Mabie</title>
+<meta name="description" content="A logic mystery that never runs out. clingo, an answer set programming solver running in your browser, writes each case and proves its clues point to exactly one neighbor.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav" aria-label="Main">
+    <a class="site-brand" href="../../">Luke Mabie</a>
+    <a class="back" href="../../#workbench">Workbench</a>
+  </nav>
+
+  <header>
+    <span class="eyebrow">Logic puzzle · clingo running in your browser</span>
+    <h1>Block Party Whodunit</h1>
+    <p class="lede">Something went missing at the block party. A logic program writes every case from scratch, then proves its clues point to exactly one neighbor. You'll never get one that can't be solved, and you'll never run out.</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Difficulty">
+      <button type="button" class="segbtn" data-level="easy" aria-pressed="true">Easy · 4 neighbors</button>
+      <button type="button" class="segbtn" data-level="hard" aria-pressed="false">Hard · 5 neighbors</button>
+    </div>
+    <button type="button" class="btn" id="new">New case</button>
+    <span class="spacer"></span>
+    <span class="record" id="record"></span>
+  </div>
+  <div class="status" id="status" aria-live="polite"><span class="pill busy">Loading clingo</span></div>
+
+  <div class="app" id="app" hidden>
+    <section class="panel casefile" aria-labelledby="case-h">
+      <div class="panel-h">
+        <h2 id="case-h">Case <span id="case-no"></span></h2>
+        <button type="button" class="smallbtn" id="share">Copy link</button>
+      </div>
+      <p class="story" id="story"></p>
+      <div class="panel-h">
+        <h3>Clues</h3>
+        <span class="hint">Tap a clue to cross it off</span>
+      </div>
+      <ol class="clues" id="clues"></ol>
+
+      <div class="accuse" id="accuse">
+        <h3>Who did it?</h3>
+        <div class="suspects" id="suspects"></div>
+        <div class="row">
+          <button type="button" class="smallbtn" id="hint">Hint</button>
+          <span class="hint" id="hint-text" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div class="verdict" id="verdict" hidden></div>
+    </section>
+
+    <section class="panel notebook" aria-labelledby="notes-h">
+      <div class="panel-h">
+        <h2 id="notes-h">Your notes</h2>
+        <button type="button" class="smallbtn" id="clear-notes">Clear</button>
+      </div>
+      <p class="hint">Tap a square once for <b>✕</b> (no), twice for <b>●</b> (yes). The scene is highlighted.</p>
+      <div class="grids" id="grids"></div>
+    </section>
+  </div>
+
+  <section class="enc" aria-labelledby="enc-h">
+    <div class="rules">
+      <h2 id="enc-h">How a case gets written</h2>
+      <p>The rules of the block party are about twenty lines of answer set programming, shown here. They say what a possible afternoon looks like, and what each kind of clue means. They never say how to solve anything.</p>
+      <ol>
+        <li><b>Pick a secret.</b> The page quietly decides where everyone stood and what they brought.</li>
+        <li><b>Add true clues</b> in random order. After each one, clingo checks how many neighbors could still be guilty.</li>
+        <li><b>Stop at one.</b> Then try dropping each clue. If clingo can still prove there's only one possible thief, that clue was never needed.</li>
+        <li><b>Check it's fair.</b> For every innocent neighbor, clingo finds the fewest clues that clear them. Cases that are too easy get thrown out.</li>
+      </ol>
+      <p class="hint" id="build-stats"></p>
+    </div>
+    <div style="min-width:0">
+      <div class="codehead">
+        <div class="row" role="group" aria-label="Code view">
+          <button type="button" class="smallbtn" id="view-enc" aria-pressed="true">whodunit.lp</button>
+          <button type="button" class="smallbtn" id="view-facts" aria-pressed="false">This case's facts</button>
+        </div>
+      </div>
+      <pre id="code" tabindex="0"></pre>
+    </div>
+  </section>
+
+  <footer>Built with clingo (Potassco) via clingo-wasm, the same solver behind the <a href="../garden-planner/">garden planner</a>. Your solved count is kept in this browser.</footer>
+</div>
+
+<script type="module" src="game.js"></script>
+</body>
+</html>

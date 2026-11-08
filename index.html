@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luke Mabie – Software &amp; Data Engineer | Omaha, NE</title>
+  <meta name="description" content="Luke Mabie is a data and software engineer in Omaha, Nebraska who builds pipelines, microservices, rule engines, and logic programs.">
+  <link rel="canonical" href="https://lukemabie.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Luke Mabie",
+    "url": "https://lukemabie.com/",
+    "jobTitle": "Data Engineer",
+    "worksFor": { "@type": "Organization", "name": "E15" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Omaha", "addressRegion": "NE", "addressCountry": "US" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Nebraska at Omaha" },
+    "knowsAbout": ["Data engineering", "Snowflake", "dbt", "Microservices", "Azure", "C#", "Answer set programming", "clingo"],
+    "subjectOf": [
+      { "@type": "Article", "headline": "Innovative Software Engineering at Kirsch Transportation: Insights from Luke Mabie", "url": "https://kirschtrans.com/news/software-engineer-luke-mabie/", "datePublished": "2024-09-06" },
+      { "@type": "NewsArticle", "headline": "Runs 8 hours to raise awareness for pancreatic cancer", "url": "https://www.ketv.com/article/cafe-owner-runs-8-hours-to-raise-awareness-for-pancreatic-cancer/31270935", "datePublished": "2020-03-08" }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/luke-mabie-92aabb119/",
+      "https://www.youtube.com/@lukemabie"
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <meta property="og:title" content="Luke Mabie">
+  <meta property="og:description" content="Rule engines, logic programming, and rescuing words from old paper.">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="./">Luke Mabie</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#workbench">Workbench</a>
+      <a href="b-sides.html">B-Sides</a>
+      <a href="#contact">Consulting</a>
+    </div>
+  </nav>
+
+  <main id="main" style="display: contents">
+
+  <header class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Data engineer · Omaha, Nebraska · Logic programming</span>
+      <h1>Five rules. One truck. Nothing broken.</h1>
+      <p class="lede">I'm Luke Mabie, a data and software engineer in Omaha who likes problems you can describe instead of program. The truck in this demo packs itself from five rules that say what a good load looks like, not how to load it. That's the idea behind most of what I build.</p>
+      <div class="btns">
+        <a class="btn" href="#projects">See the projects</a>
+        <a class="btn ghost" href="#contact">Talk about a project</a>
+      </div>
+    </div>
+
+    <div class="solver" aria-labelledby="solver-title">
+      <h2 id="solver-title" class="eyebrow" style="font-family: var(--body)">A logic program, packing a moving truck</h2>
+      <div class="solver-stats" aria-live="polite">
+        <span>packed <b id="packed">0</b>/<span id="total">15</span> · broken <b id="broken">0</b></span>
+        <span class="status" id="status">ready</span>
+      </div>
+      <div class="truck">
+        <div class="cargo" id="cargo" role="group" aria-label="Moving truck, side view, 8 squares long and 5 high. Doors on the left."></div>
+        <div class="cab" aria-hidden="true"><span class="cab-window"></span></div>
+        <span class="wheel w1" aria-hidden="true"></span><span class="wheel w2" aria-hidden="true"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+<pre class="code" id="rules"><span class="ln"><span class="c">% every item gets exactly one spot</span>
+1 { at(I,X,Y) : spot(I,X,Y) } 1 :- item(I).</span><span class="ln"><span class="c">% one thing per square</span>
+:- fills(I,X,Y), fills(J,X,Y), I &lt; J.</span><span class="ln"><span class="c">% nothing floats in midair</span>
+:- at(I,X,Y), Y &gt; 0, not held_up(I).</span><span class="ln"><span class="c">% heavy things ride on the floor</span>
+:- at(I,_,Y), heavy(I), Y &gt; 0.</span><span class="ln"><span class="c">% nothing goes on top of fragile stuff</span>
+:- on(_,F), fragile(F).</span></pre>
+      <div class="btns">
+        <button type="button" class="btn" id="solve">Pack it again</button>
+        <button type="button" class="btn quiet" id="clear">Unload the truck</button>
+      </div>
+      <p class="solver-note">Click anything in the truck to see the rule that put it there. My <a href="projects/clingo-garden-planner.html">garden planner</a> runs real clingo on the same idea: sun, companions, spacing, and rotation.</p>
+    </div>
+  </header>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="section-head">
+      <h2 id="work-h">Where I've worked</h2>
+      <p>Build a home base, then grow it one small service at a time.</p>
+    </div>
+    <div class="jobs">
+      <div class="job">
+        <span class="when">NOW · SINCE 2026</span>
+        <h3>Data Engineer, E15 · Compass Group</h3>
+        <p>I build pipelines that take in data with Fivetran, model it in dbt, and serve it from Snowflake, with AWS Lambda and CloudFormation underneath. I came here to learn from a bigger team, and focusing on data has been the fastest way to do it.</p>
+      </div>
+      <div class="job">
+        <span class="when">2023–2026 · OMAHA</span>
+        <h3>Senior Systems Engineer, Kirsch Transportation &amp; Logistics</h3>
+        <p>I built the company's pricing platform from scratch. It started as one home base on Azure, then grew a microservice for each job: a pricing engine, a live feed of spot-rate bids from people and bots that you could search and sort, and a conditions engine that lets the business automate its own decisions. Automation pipelines fed it all into McLeod. That's where I fell for microservices.</p>
+        <a class="job-link" href="https://kirschtrans.com/news/software-engineer-luke-mabie/">In my words: building a rules engine at Kirsch (2024) →</a>
+      </div>
+    </div>
+    <dl class="stack" aria-label="Languages and tools">
+      <div class="tone-squash"><dt>Data</dt><dd>Snowflake · dbt · Fivetran · SQL · AWS Lambda · CloudFormation</dd></div>
+      <div class="tone-tomato"><dt>Back end</dt><dd>C# · .NET · Node.js · Azure Functions &amp; Durable Functions</dd></div>
+      <div class="tone-corn"><dt>Front end</dt><dd>React · Angular · Azure Static Web Apps</dd></div>
+      <div class="tone-peas"><dt>Learning</dt><dd>clingo · answer set programming</dd></div>
+      <div class="tone-basil"><dt>School</dt><dd>B.S. Computer Science, University of Nebraska at Omaha</dd></div>
+    </dl>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-h">
+    <div class="section-head">
+      <h2 id="projects-h">Projects</h2>
+      <p>Each one: why I built it, what I think now, and what was hard.</p>
+    </div>
+    <div class="cards">
+      <a class="card tone-peas" href="projects/clingo-garden-planner.html">
+        <span class="mono-tag">clingo · answer set programming</span>
+        <h3>Clingo Garden Planner</h3>
+        <p>Plan a raised bed with sun, companions, spacing, and crop rotation across three seasons, in about 60 lines of logic.</p>
+        <span class="more">Why I built it →</span>
+      </a>
+      <a class="card tone-corn" href="projects/the-buck-ends-here.html">
+        <span class="mono-tag">archive · document AI</span>
+        <h3>The Buck Ends Here</h3>
+        <p>Twenty years of my grandpa's newspaper column, pulled out of scans that plain OCR couldn't read.</p>
+        <span class="more">Why I built it →</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="workbench" aria-labelledby="workbench-h">
+    <div class="section-head">
+      <h2 id="workbench-h">Workbench</h2>
+      <p>Small things I'm building to learn or for fun. Some finished, some not.</p>
+    </div>
+    <!-- Add new entries at the top. Status class: live, progress, or paused. -->
+    <ul class="bench">
+      <li>
+        <span class="bench-status live">live</span>
+        <a href="projects/hipster-menu/">Hipster Menu Generator</a>
+        <span class="bench-note">Seven Laws of Artisanal Dining, written as logic. Ramps are mandatory.</span>
+      </li>
+      <li>
+        <span class="bench-status live">live</span>
+        <a href="projects/whodunit/">Block Party Whodunit</a>
+        <span class="bench-note">A logic mystery that never runs out. clingo writes each case and proves only one neighbor could have done it.</span>
+      </li>
+      <li>
+        <span class="bench-status live">live</span>
+        <a href="projects/garden-planner/">Garden planner</a>
+        <span class="bench-note">Plan a raised bed for three seasons. clingo running in your browser.</span>
+      </li>
+    </ul>
+    <p class="bench-more">Next ideas land here first.</p>
+  </section>
+
+  <a class="flip" href="b-sides.html">
+    <span class="flip-tape" aria-hidden="true"><span></span><span></span></span>
+    <span class="flip-copy">
+      <span class="eyebrow">Side B</span>
+      <b>Flip the tape</b>
+      <span>An Omaha dance-rock band, a laser squad in a Wal-mart, and eight hours of running down Farnam Street.</span>
+    </span>
+    <span class="more">Play side B →</span>
+  </a>
+
+  <section id="contact" class="band" aria-labelledby="contact-h">
+    <div>
+      <h2 id="contact-h">Have something you want built?</h2>
+      <p>Almost anything can be built now. The hard part is knowing which direction to go and what it will really cost. If you want help with that, or with the build itself, I'm happy to talk.</p>
+    </div>
+    <!-- TODO: confirm this address exists before going live -->
+    <a class="btn" href="mailto:hello@lukemabie.com?subject=Consulting%20inquiry">Get in touch</a>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year">2026</span> Luke Mabie</span>
+    <span>lukemabie.com</span>
+  </footer>
+</div>
+<script src="js/truck.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

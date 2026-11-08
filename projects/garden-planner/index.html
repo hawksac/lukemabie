@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:">
+<title>Garden Planner · Luke Mabie</title>
+<meta name="description" content="Plan a three-season garden bed with clingo, an answer set programming solver running in your browser.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav" aria-label="Main">
+    <a class="site-brand" href="../../">Luke Mabie</a>
+    <a class="back" href="../clingo-garden-planner.html">About this project</a>
+  </nav>
+  <header>
+    <span class="eyebrow">Answer set programming · clingo running in your browser</span>
+    <h1>Clingo Garden Planner</h1>
+    <p class="lede">Mark where the sun falls on your bed, choose what you want to grow, and a 60-line logic program plans every square foot for spring, summer, and fall. It respects sun needs, companion planting, spacing, and crop rotation, then searches for the plan with the most good neighbors.</p>
+  </header>
+
+  <div class="app">
+    <aside class="rail">
+      <section class="panel" aria-labelledby="bed-h">
+        <div class="panel-h"><h2 id="bed-h">Your bed</h2><span class="hint">1 square = 1 ft²</span></div>
+        <div class="row">
+          <label class="field" for="bed-w">Width
+            <select id="bed-w"></select></label>
+          <label class="field" for="bed-h-sel">Depth
+            <select id="bed-h-sel"></select></label>
+        </div>
+        <div class="brushes" role="group" aria-label="Sun brush">
+          <button class="brush" id="brush-3" data-lvl="3" aria-pressed="true"><i class="s3"></i>Full sun 6h+</button>
+          <button class="brush" id="brush-2" data-lvl="2" aria-pressed="false"><i class="s2"></i>Part 3–6h</button>
+          <button class="brush" id="brush-1" data-lvl="1" aria-pressed="false"><i class="s1"></i>Shade</button>
+        </div>
+        <div>
+          <div class="compass"><span>North edge</span><span>Paint sun ↓</span></div>
+          <div class="paint" id="paint" aria-label="Sun map, click or drag to paint"></div>
+          <div class="compass" style="margin-top:4px"><span>South edge</span><span></span></div>
+        </div>
+        <p class="hint">Tall crops cast shade on the square to their north, so the solver learns to put them along the north edge.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="crops-h">
+        <div class="panel-h"><h2 id="crops-h">What to grow</h2><span class="hint">squares wanted</span></div>
+        <div id="crops"></div>
+      </section>
+    </aside>
+
+    <main class="results">
+      <div class="actions">
+        <button class="btn" id="solve">Plan my bed</button>
+        <button class="btn ghost" id="stop" disabled>Stop</button>
+        <label class="field" for="limit">Search time
+          <select id="limit"><option value="5">5 s</option><option value="10" selected>10 s</option><option value="20">20 s</option><option value="45">45 s</option></select></label>
+        <label class="toggle" for="fill"><input type="checkbox" id="fill" checked>Fill open squares</label>
+        <label class="toggle" for="showlinks"><input type="checkbox" id="showlinks" checked>Show companion pairs</label>
+        <span class="spacer"></span>
+        <div class="filebtns">
+            <button class="btn ghost" id="open-file">Open…</button>
+            <button class="btn ghost" id="save-file">Save…</button>
+            <input type="file" id="layout-file" accept=".json,application/json" hidden>
+            <button class="btn ghost" id="print">Print</button>
+        </div>
+      </div>
+      <div class="status" id="status" aria-live="polite"><span class="pill">Ready</span></div>
+
+      <div class="stats" id="stats"></div>
+      <div class="boards" id="boards"></div>
+      <div class="legend" id="legend"></div>
+
+      <div class="lower">
+        <section class="panel detail" aria-labelledby="det-h">
+          <h3 id="det-h">Square details</h3>
+          <div id="detail"><p class="hint">Click any square in the plan to see why it holds what it does.</p></div>
+        </section>
+        <section class="panel" aria-labelledby="tally-h">
+          <h3 id="tally-h">Planted vs. wanted</h3>
+          <div class="tally" id="tally"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <section class="enc" aria-labelledby="enc-h">
+    <div class="rules">
+      <h2 id="enc-h">How the program reads</h2>
+      <p>The page turns your bed and crop list into facts, appends them to the encoding on the right, and hands both to clingo. Each rule is a plain statement about a good garden:</p>
+      <ol>
+        <li><b>One crop per square per season</b>, and only in a season that crop grows in.</li>
+        <li><b>Sun:</b> a crop never sits in less light than it needs. A tall crop knocks the square north of it down one sun level.</li>
+        <li><b>Bad companions</b> are never neighbors, diagonals included.</li>
+        <li><b>Spacing:</b> sprawling crops keep their distance from each other. Two sprawlers with spreads <i>a</i> and <i>b</i> stay at least <i>a</i>+<i>b</i> squares apart.</li>
+        <li><b>Rotation:</b> the same plant family never follows itself in a square from one season to the next.</li>
+        <li><b>Goals</b>, in priority order: meet your wishlist, then maximize good-companion neighbors and legumes following heavy feeders, then fill open squares.</li>
+      </ol>
+      <p class="hint">Clingo grounds the program, then improves the plan until it proves no better one exists or the search time runs out.</p>
+    </div>
+    <div style="min-width:0">
+      <div class="codehead">
+        <div class="row" role="group" aria-label="Code view">
+          <button class="smallbtn" id="view-enc" aria-pressed="true">garden.lp</button>
+          <button class="smallbtn" id="view-facts" aria-pressed="false">Generated facts</button>
+        </div>
+        <button class="smallbtn" id="copy">Copy</button>
+      </div>
+      <pre id="code" tabindex="0"></pre>
+    </div>
+  </section>
+
+  <footer>Companion pairs follow common gardening lore rather than controlled trials; treat them as preferences, which is how the solver treats the good ones. Built with clingo (Potassco) via clingo-wasm. Your last garden is kept in this browser; use Save to keep several. <a href="../clingo-garden-planner.html">About the project</a>.</footer>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
