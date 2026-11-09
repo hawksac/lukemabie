@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:">
 <title>Hipster Menu Generator · Luke Mabie</title>
-<meta name="description" content="Every menu obeys the Laws of Artisanal Dining. A logic program written for clingo, running in your browser, writes a new one each time.">
+<meta name="description" content="Every menu obeys the Non-Negotiable Principles of Culinary Authenticity. A logic program written for clingo, running in your browser, writes a new one each time.">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,8 +28,8 @@
   <header class="masthead">
     <span class="eyebrow">Vol. III &nbsp;❧&nbsp; A solver-forward dining concept &nbsp;❧&nbsp; Est. before it was cool</span>
     <h1><span class="the">The</span> Hipster Menu Generator<sup class="tm">™</sup></h1>
-    <p class="subtitle">An answer-set tasting experience, in seven laws.</p>
-    <p class="lede">We don't generate menus. We let them <em>emerge</em>. Each one is coaxed, slowly, from seven hand-written Laws of Artisanal Dining by clingo, a small-batch solver from Potsdam, compiled to WebAssembly and served in your browser at room temperature. No two menus are alike, unless you share the link, which we'd honestly prefer you didn't.</p>
+    <p class="subtitle">An answer-set tasting experience, in eleven principles.</p>
+    <p class="lede">We don't generate menus. We let them <em>emerge</em>. Each one is coaxed, slowly, from eleven hand-written Principles of Culinary Authenticity by clingo, a small-batch solver from Potsdam, compiled to WebAssembly and served in your browser at room temperature. No two menus are alike, unless you share the link, which we'd honestly prefer you didn't.</p>
   </header>
 
   <aside class="colophon" aria-label="Colophon">
@@ -63,16 +63,20 @@
   <section class="enc" aria-labelledby="laws-h">
     <div class="rules">
       <span class="eyebrow">Our philosophy</span>
-      <h2 id="laws-h">The Laws of Artisanal Dining</h2>
-      <p>The program never tells clingo <em>how</em> to write a menu. That would be prescriptive, and frankly a little corporate. It lists the vocabulary, lets the solver choose, and forbids anything that breaks a law:</p>
+      <h2 id="laws-h">The Non-Negotiable Principles of Culinary Authenticity</h2>
+      <p>The program never tells clingo <em>how</em> to write a menu. That would be prescriptive, and frankly a little corporate. It lists the vocabulary, lets the solver choose, and forbids anything that breaks a principle:</p>
       <ol>
-        <li><b>No ingredient appears twice</b> anywhere on the menu. Repetition is for chains.</li>
-        <li><b>Every dish has a buzzword</b>: foraged, pickled, heritage, fermented, house-made, or local. <span class="hint">On the menu, the buzzword is <span class="buzz-sample">underlined</span>, so you know where to look impressed.</span></li>
-        <li><b>Ramps are mandatory.</b> This is not up for discussion.</li>
-        <li><b>At most one dish is deconstructed.</b> We're not animals.</li>
+        <li><b>No ingredient appears twice</b> anywhere on the menu. Repetition is for chain restaurants.</li>
+        <li><b>Every dish has a buzzword</b>: foraged, pickled, heritage, fermented, house-made, or local. Otherwise it's just food. <span class="hint">On the menu, the buzzword is <span class="buzz-sample">underlined</span>, so you know where to look impressed.</span></li>
+        <li><b>Ramps are mandatory.</b> This is not a democracy.</li>
+        <li><b>Exactly one dish is deconstructed.</b> The kitchen has misplaced the concept of assembly, but only once.</li>
+        <li><b>Something must be fermented.</b> Fermentation is not optional. It is a worldview.</li>
+        <li><b>Something must be foraged.</b> The chef owns hiking boots and needs you to know. The ramps already guarantee this. The chef wanted it in writing.</li>
         <li><b>Every large plate costs more than every small plate.</b> The small plates are still not cheap.</li>
         <li><b>Each cocktail gets its own</b> spirit, vessel, garnish and name, and at least one involves smoke. A cocktail without smoke is just a drink.</li>
-        <li><b>Prices go up with pretension:</b> $8, $18 or $11 plus the pretension of everything on the plate or in the glass. Honesty is our only affordable ingredient.</li>
+        <li><b>At least one cocktail comes in an impractical vessel.</b> Functionality is a form of conformity.</li>
+        <li><b>Prices go up with pretension:</b> $8, $18 or $11 plus the pretension of everything on the plate or in the glass, then three surcharges per plate. Honesty is our only affordable ingredient.</li>
+        <li><b>No small plate under $16, no large plate under $32.</b> The menu must be expensive enough to discourage the people who originally lived in the neighborhood.</li>
       </ol>
       <p class="hint"><b>Pursue peak pretension</b> adds a single line, a <code>#maximize</code> over total pretension, and shows each more insufferable menu as clingo finds it. Proving nothing beats the best one takes far longer than anyone should wait, so it stops after a few seconds. We call this restraint.</p>
     </div>

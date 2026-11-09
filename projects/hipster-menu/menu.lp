@@ -1,6 +1,7 @@
 % =====================================================================
 %  Hipster Menu Generator, in Answer Set Programming (clingo)
-%  Every answer set is a menu that obeys the Laws of Artisanal Dining.
+%  Every answer set is a menu that obeys the Non-Negotiable Principles
+%  of Culinary Authenticity.
 %  Inspired by the 2015 Brooklyn Bar Menu Generator.
 % =====================================================================
 
@@ -29,6 +30,7 @@ ingredient("heritage pork jowl",        protein, 3).
 ingredient("tilefish crudo",            protein, 3).
 ingredient("squab",                     protein, 4).
 ingredient("goat shoulder",             protein, 3).
+ingredient("ethically conflicted foie gras", protein, 5).
 
 ingredient("ramps",                     veg, 3).
 ingredient("fiddlehead ferns",          veg, 4).
@@ -46,6 +48,8 @@ ingredient("chicories",                 veg, 2).
 ingredient("delicata squash",           veg, 2).
 ingredient("foraged sea beans",         veg, 4).
 ingredient("celeriac",                  veg, 2).
+ingredient("emotionally available mushrooms", veg, 5).
+ingredient("locally misunderstood turnips", veg, 4).
 
 ingredient("burrata",                   cheese, 2).
 ingredient("local chevre",              cheese, 3).
@@ -67,6 +71,8 @@ ingredient("koji-aged rice",            side, 4).
 ingredient("sourdough crumb",           side, 2).
 ingredient("pickled green strawberries", side, 4).
 ingredient("whey-poached barley",       side, 3).
+ingredient("single-origin tap water",   side, 4).
+ingredient("divorced sourdough starter", side, 5).
 
 ingredient("microgreens",               garnish, 1).
 ingredient("edible flowers",            garnish, 2).
@@ -83,6 +89,13 @@ ingredient("pine needle oil",           garnish, 3).
 ingredient("crispy chicken skin",       garnish, 2).
 ingredient("a quenelle of something",   garnish, 4).
 ingredient("dehydrated kombucha leather", garnish, 5).
+ingredient("unpasteurized optimism",    garnish, 5).
+ingredient("a memory of parmesan",      garnish, 5).
+ingredient("conceptual sea salt",       garnish, 5).
+ingredient("one very confident pea",    garnish, 4).
+ingredient("microgreens with a trust fund", garnish, 5).
+ingredient("an apology from the chef",  garnish, 5).
+ingredient("a whisper of nutritional yeast", garnish, 4).
 
 % tag(Thing, Tag) — the buzzwords
 tag("ramps", foraged).            tag("fiddlehead ferns", foraged).
@@ -100,6 +113,12 @@ tag("garlic scapes", foraged).     tag("pickled green strawberries", pickled).
 tag("fermented chili jam", fermented). tag("koji-aged rice", fermented).
 tag("sourdough crumb", house).     tag("whey-poached barley", local).
 tag("raw-milk tomme", local).      tag("pine needle oil", foraged).
+tag("emotionally available mushrooms", foraged).
+tag("locally misunderstood turnips", local).
+tag("single-origin tap water", local).
+tag("divorced sourdough starter", fermented).
+tag("unpasteurized optimism", fermented).
+tag("dehydrated kombucha leather", fermented).
 
 trendy(foraged; pickled; heritage; fermented; house; local).
 
@@ -166,6 +185,10 @@ vessel_opt("a sake cup inside a smaller sake cup", 5).
 vessel_opt("a Victorian coupe", 2).
 vessel_opt("a deliberately dented tin cup", 3).
 vessel_opt("a clay pot with a cork", 3).
+vessel_opt("a reclaimed laboratory specimen jar", 5).
+vessel_opt("a ceramic interpretation of a glass", 5).
+vessel_opt("a mason jar with generational wealth", 5).
+vessel_opt("a vessel that challenges the idea of containment", 5).
 
 drink_garnish("a dehydrated blood orange wheel", 2).
 drink_garnish("a sprig of thyme", 1).
@@ -196,6 +219,12 @@ cocktail_name("The Unpaid Intern"). cocktail_name("Handlebar Mustache").
 cocktail_name("Before It Was Cool"). cocktail_name("The Thrift Store Coat").
 cocktail_name("Bespoke Negroni"). cocktail_name("The Etsy Shop").
 cocktail_name("Silent Reading Party"). cocktail_name("The Converted Warehouse").
+cocktail_name("The $4,200 Studio").  cocktail_name("My Parents Own the Building").
+cocktail_name("The Unfunded Startup"). cocktail_name("Emotional Support Mezcal").
+cocktail_name("The Situationship"). cocktail_name("Late-Stage Capitalism").
+cocktail_name("The Trust Fund Negroni"). cocktail_name("It's Actually a Listening Bar").
+cocktail_name("The Former Goldman Sachs Analyst"). cocktail_name("I Knew the Neighborhood Before You").
+cocktail_name("The Algorithm Made Me Do It"). cocktail_name("The Natural Wine Incident").
 
 % --- branding ---
 name_noun("Anvil"). name_noun("Thistle"). name_noun("Hound"). name_noun("Larder").
@@ -233,6 +262,36 @@ tagline_opt("Our bartenders prefer the term \"liquid archivists.\"").
 tagline_opt("Water is available upon written request.").
 tagline_opt("A 22% gratitude fee has been added to support our foraging team.").
 tagline_opt("Reservations open at 4:17 a.m. on the second Tuesday.").
+tagline_opt("We do not have Wi-Fi. We have community.").
+tagline_opt("Our menu changes whenever the chef feels seen.").
+tagline_opt("All prices reflect the emotional labor of sourcing.").
+tagline_opt("We proudly accept cash, cryptocurrency, and validation.").
+tagline_opt("Our vegetables have never experienced capitalism.").
+tagline_opt("The chef would prefer you not understand the menu.").
+tagline_opt("Our farm-to-table journey includes a brief Uber ride.").
+tagline_opt("We were here before the neighborhood was cool. Since 2014.").
+tagline_opt("Please allow 45 minutes for the concept of bread.").
+tagline_opt("Our tasting menu is a conversation. You may not participate.").
+tagline_opt("We don't serve brunch. We curate mornings.").
+tagline_opt("The bathroom code is available with a tasting menu.").
+tagline_opt("Our Michelin star is currently being manifested.").
+
+origin_story("Founded by two former consultants who discovered fire.").
+origin_story("What began as a pop-up became a movement, then an LLC.").
+origin_story("Our founder spent three transformative weeks in Copenhagen.").
+origin_story("Born from a shared love of food and inherited real estate.").
+origin_story("A former warehouse, reimagined as a former warehouse.").
+origin_story("Our chef trained under a chef who once met René Redzepi.").
+origin_story("We believe food should tell a story, preferably about us.").
+origin_story("Founded in 2012. Spiritually established in 1890.").
+
+% fee(Name, Dollars): added to every plate, for reasons.
+fee("Creative journey fee",      4).
+fee("Ceramics preservation fee", 3).
+fee("Ambiance surcharge",        5).
+fee("Foraging team hiking-boot fund", 2).
+fee("Playlist curation levy",    3).
+fee("Reclaimed-wood upkeep",     4).
 
 % ---------------------------------------------------------------------
 %  GENERATE
@@ -263,23 +322,38 @@ role(S,N,I,garnish) :- garnish(S,N,I).
 1 { located(H)    : neighborhood(H) } 1.
 1 { est(Y)        : year(Y)         } 1.
 2 { tagline(T)    : tagline_opt(T)  } 2.
+1 { story(X)      : origin_story(X) } 1.
+3 { surcharge(F)  : fee(F,_)        } 3.
 
 % ---------------------------------------------------------------------
-%  THE LAWS OF ARTISANAL DINING  (integrity constraints)
+%  THE NON-NEGOTIABLE PRINCIPLES OF CULINARY AUTHENTICITY
+%  (integrity constraints)
 % ---------------------------------------------------------------------
 
-% No ingredient appears twice anywhere on the menu.
+% No ingredient may appear twice.
+% Repetition is for chain restaurants.
 :- ingredient(I,_,_), #count { S,N,R : role(S,N,I,R) } > 1.
 
 % Every dish must contain at least one buzzword.
+% Otherwise it's just food.
 buzzy(S,N) :- role(S,N,I,_), tag(I,T), trendy(T).
 :- dish(S,N), not buzzy(S,N).
 
 % Ramps are mandatory.
+% This is not a democracy.
 :- not role(_,_,"ramps",_).
 
-% Only one dish may be deconstructed (we're not animals).
-:- #count { S,N : prep(S,N,"deconstructed") } > 1.
+% Every menu must contain exactly one deconstructed dish.
+% The kitchen has misplaced the concept of assembly, but only once.
+:- #count { S,N : prep(S,N,"deconstructed") } != 1.
+
+% Fermentation is not optional. It is a worldview.
+:- not 1 { role(S,N,I,R) : role(S,N,I,R), tag(I,fermented) }.
+
+% Someone must have wandered into the woods for this menu.
+% The chef owns hiking boots and needs you to know.
+% (The ramps already guarantee this. The chef wanted it in writing.)
+:- not 1 { role(S,N,I,R) : role(S,N,I,R), tag(I,foraged) }.
 
 % Bar name is "<Noun> & <Noun>", two different nouns.
 :- bar_first(A), bar_second(A).
@@ -295,10 +369,15 @@ buzzy(S,N) :- role(S,N,I,_), tag(I,T), trendy(T).
 smoky(D) :- mod(D,M), tag(M,smoke).
 :- not smoky(_).
 
+% At least one cocktail must be served in an impractical vessel.
+% Functionality is a form of conformity.
+:- not 1 { vessel(D,V) : vessel(D,V), vessel_opt(V,P), P >= 4 }.
+
 % ---------------------------------------------------------------------
 %  PRICING  (pretension is priced in)
 %  A dish's score is the pretension of everything on it plus its prep.
 %  Small plates cost $8 + score, large plates $18 + score, cocktails $11 + score.
+%  Surcharges are printed separately, because hiding them would be dishonest.
 % ---------------------------------------------------------------------
 
 % Every large plate costs more than every small plate:
@@ -309,6 +388,14 @@ smoky(D) :- mod(D,M), tag(M,smoke).
          -P,I,2 : role(large,B,I,_), ingredient(I,_,P) ;
          -Q,p,2 : prep(large,B,Pr),  preparation(Pr,Q) } >= 10.
 
+% The menu must be expensive enough to discourage the people
+% who originally lived in the neighborhood.
+% No small plate under $16 (score 8), no large plate under $32 (score 14).
+floor(small, 8). floor(large, 14).
+:- dish(S,N), floor(S,F),
+   #sum { P,I : role(S,N,I,_), ingredient(I,_,P) ;
+          Q,p : prep(S,N,Pr),  preparation(Pr,Q) } < F.
+
 % The pretension of each chosen thing, so prices can be read off the menu.
 pv(I,P)  :- role(_,_,I,_), ingredient(I,_,P).
 pv(Pr,Q) :- prep(_,_,Pr),  preparation(Pr,Q).
@@ -316,6 +403,7 @@ pv(X,P)  :- base(_,X),     spirit(X,P).
 pv(M,P)  :- mod(_,M),      modifier(M,P).
 pv(V,P)  :- vessel(_,V),   vessel_opt(V,P).
 pv(G,P)  :- dgarnish(_,G), drink_garnish(G,P).
+fee_amount(F,X) :- surcharge(F), fee(F,X).
 
 % Which buzzword each dish leans on, so the menu can show its work.
 buzz(S,N,I,T) :- role(S,N,I,_), tag(I,T), trendy(T).
@@ -325,4 +413,4 @@ buzz(S,N,I,T) :- role(S,N,I,_), tag(I,T), trendy(T).
 #show main/3. #show side/3. #show garnish/3. #show prep/3. #show pv/2.
 #show base/2. #show mod/2. #show vessel/2. #show dgarnish/2. #show cname/2.
 #show bar_first/1. #show bar_second/1. #show bar_suffix/1. #show located/1. #show est/1.
-#show tagline/1.
+#show tagline/1. #show story/1. #show fee_amount/2.

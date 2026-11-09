@@ -140,6 +140,13 @@ footer{font-family:var(--menu-body);font-style:italic}
 .buzz-sample{text-decoration:underline;text-decoration-color:var(--warn);text-underline-offset:3px}
 .menu-foot{margin-top:36px;border-top:2px solid var(--paper-ink);padding-top:14px;text-align:center;font-size:14px;color:var(--paper-muted)}
 .menu-foot p{margin:4px 0}
+.menu-foot .gratuity{margin-top:10px;font-style:italic}
+.menu .story{margin:10px auto 0;max-width:44ch;font-style:italic;font-size:15px;color:var(--paper-muted)}
+.menu .fees .fee-note{text-align:center;font-style:italic;font-size:14px;color:var(--paper-muted);margin:-8px 0 16px}
+.menu .fees .item{margin-bottom:8px}
+.menu .fees .d:empty{display:none}
+.menu .fees .fee-total{border-top:1px solid var(--paper-ink);padding-top:8px;margin-top:6px}
+.menu .fees .fee-eg{text-align:center;font-style:italic;font-size:14px;color:var(--paper-muted);margin:14px 0 0}
 .menu-foot .meta{margin-top:12px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 
 /* laws + code */

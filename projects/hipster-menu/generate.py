@@ -48,7 +48,7 @@ def solve(seed, maximize=False):
             handle.cancel()
     last = best.get("symbols")
     if last is None:
-        raise SystemExit("UNSATISFIABLE: the Laws of Artisanal Dining cannot all be obeyed.")
+        raise SystemExit("UNSATISFIABLE: the Principles of Culinary Authenticity cannot all be obeyed.")
 
     facts = defaultdict(list)
     for sym in last:
@@ -102,6 +102,9 @@ def build_menu(f):
         "where": one("located"),
         "est": one("est"),
         "taglines": sorted(t for (t,) in f["tagline"]),
+        "story": one("story"),
+        "fees": sorted(f["fee_amount"], key=lambda x: -x[1]),
+        "top_large": max(section("large"), key=lambda x: x["price"]),
         "pretension": sum(v["price"] - base_price[s] for (s, _), v in dishes.items())
                       + sum(v["price"] - 11 for v in drinks.values()),
         "sections": [
@@ -113,14 +116,22 @@ def build_menu(f):
 
 
 def to_text(m, seed):
-    out = [m["bar"].upper(), f"{m['where']} · Est. {m['est']}", ""]
+    out = [m["bar"].upper(), f"{m['where']} · Est. {m['est']}", m["story"], ""]
     for name, items in m["sections"]:
         out.append(f"— {name} —")
         for it in items:
             out.append(f"  {it['title']:<45} ${it['price']}")
             out.append(f"     {it['desc']}")
         out.append("")
+    total = sum(x for _, x in m["fees"])
+    out.append("— Mandatory Additions (per plate) —")
+    out += [f"  {n:<45} +${x}" for n, x in m["fees"]]
+    out.append(f"  {'Total, per plate':<45} +${total}")
+    t = m["top_large"]
+    out.append(f"     The {t['title']}, listed at ${t['price']}, is therefore ${t['price'] + total}.")
+    out.append("")
     out += [f"  * {t}" for t in m["taglines"]]
+    out.append("  Gratuity not included. Gratitude is mandatory.")
     out.append(f"\n  pretension score: {m['pretension']}   seed: {seed}")
     return "\n".join(out)
 
@@ -134,7 +145,16 @@ def to_html(m, seed):
             f'<span class="dots"></span><span class="p">{it["price"]}</span></div>'
             f'<div class="d">{e(it["desc"])}</div></div>' for it in items)
         sections += f'<section><h2>{e(name)}</h2>{rows}</section>'
-    tags = "".join(f"<p>{e(t)}</p>" for t in m["taglines"])
+    total = sum(x for _, x in m["fees"])
+    t = m["top_large"]
+    fee_rows = "".join(
+        f'<div class="item"><div class="row"><span class="t">{e(n)}</span><span class="dots"></span>'
+        f'<span class="p">+{x}</span></div></div>' for n, x in m["fees"])
+    sections += (f'<section><h2>Mandatory Additions</h2><p class="note">Applied to every plate, per plate.</p>{fee_rows}'
+                 f'<div class="item total"><div class="row"><span class="t">Total, per plate</span><span class="dots"></span>'
+                 f'<span class="p">+{total}</span></div></div>'
+                 f'<p class="note">The {e(t["title"])}, listed at ${t["price"]}, is therefore ${t["price"] + total}.</p></section>')
+    tags = "".join(f"<p>{e(t)}</p>" for t in m["taglines"]) + "<p><i>Gratuity not included. Gratitude is mandatory.</i></p>"
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(m['bar'])}</title>
@@ -153,9 +173,12 @@ h2::before,h2::after{{content:'~';margin:0 12px;color:var(--rule)}}
 .dots{{flex:1;border-bottom:1px dotted var(--rule)}}
 .d{{color:var(--muted);font-style:italic;font-size:15px;margin-top:2px}}
 footer{{margin-top:40px;border-top:2px solid var(--ink);padding-top:16px;text-align:center;font-size:14px;color:var(--muted)}}
+.note{{text-align:center;font-style:italic;color:var(--muted);font-size:14px}}
+.total{{border-top:1px solid var(--ink);padding-top:8px}}
+.story{{font-style:italic;color:var(--muted);margin:10px 0 0}}
 footer p{{margin:4px 0}} .meta{{margin-top:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}}
 </style></head><body><main>
-<header><h1>{e(m['bar'])}</h1><div class="sub">{e(m['where'])} · Est. {m['est']}</div></header>
+<header><h1>{e(m['bar'])}</h1><div class="sub">{e(m['where'])} · Est. {m['est']}</div><p class="story">{e(m['story'])}</p></header>
 {sections}
 <footer>{tags}<p class="meta">Pretension score {m['pretension']} · solved by clingo · seed {seed}</p></footer>
 </main></body></html>"""

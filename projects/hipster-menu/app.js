@@ -81,6 +81,8 @@ function buildMenu(atoms) {
     bar: `${one("bar_first")} & ${one("bar_second")} ${one("bar_suffix")}`,
     where: one("located"), est: one("est"),
     taglines: g("tagline").map((t) => t[0]).sort(),
+    story: one("story"),
+    fees: g("fee_amount").map(([name, amt]) => ({ name, amt })).sort((a, b) => b.amt - a.amt),
     pretension: all.reduce((t, d) => t + d.score, 0),
     small: [...dishes.values()].filter((d) => d.section === "small").sort((a, b) => a.price - b.price),
     large: [...dishes.values()].filter((d) => d.section === "large").sort((a, b) => a.price - b.price),
@@ -106,15 +108,25 @@ function drinkItem(d) {
   const mods = d.mods.slice().sort().map(esc).join(", ");
   return item(esc(d.name), `${esc(d.spirit)}, ${mods}. Served in ${esc(d.vessel)} with ${esc(d.garnish)}.`, d.price);
 }
+function feesSection(m) {
+  if (!m.fees.length) return "";
+  const total = m.fees.reduce((t, f) => t + f.amt, 0);
+  const top = m.large[m.large.length - 1];
+  const rows = m.fees.map((f) => item(esc(f.name), "", `+${f.amt}`)).join("");
+  const eg = top ? `<p class="fee-eg">The ${esc(titleCase(top.prep))} ${esc(titleCase(top.main))}, listed at $${top.price}, is therefore $${top.price + total}.</p>` : "";
+  return `<section class="fees"><h3>Mandatory Additions</h3><p class="fee-note">Applied to every plate, per plate.</p>${rows}` +
+    `<div class="fee-total">${item("Total, per plate", "", `+${total}`)}</div>` + eg + `</section>`;
+}
 function render(m, note) {
   const el = $("#menu");
   el.hidden = false;
   el.innerHTML =
-    `<header class="menu-head"><h2>${esc(m.bar)}</h2><div class="sub">${esc(m.where)} · Est. ${esc(m.est)}</div></header>` +
+    `<header class="menu-head"><h2>${esc(m.bar)}</h2><div class="sub">${esc(m.where)} · Est. ${esc(m.est)}</div>${m.story ? `<p class="story">${esc(m.story)}</p>` : ""}</header>` +
     `<section><h3>Small Plates</h3>${m.small.map(dishItem).join("")}</section>` +
     `<section><h3>Large Plates</h3>${m.large.map(dishItem).join("")}</section>` +
     `<section><h3>Cocktails</h3>${m.drinks.map(drinkItem).join("")}</section>` +
-    `<footer class="menu-foot">${m.taglines.map((t) => `<p>${esc(t)}</p>`).join("")}` +
+    feesSection(m) +
+    `<footer class="menu-foot">${m.taglines.map((t) => `<p>${esc(t)}</p>`).join("")}<p class="gratuity">Gratuity not included. Gratitude is mandatory.</p>` +
     `<p class="meta">Pretension ${m.pretension}${note ? " · " + esc(note) : ""} · solved by clingo</p></footer>`;
 }
 
@@ -132,11 +144,11 @@ async function newMenu(seed) {
     const res = await clingo.run(files["menu.lp"], 1, seedArgs(seed));
     if (res.Result === "ERROR") throw new Error(res.Error);
     const w = res.Call?.[res.Call.length - 1]?.Witnesses?.[0];
-    if (!w) { setStatus('<span class="pill err">Unsatisfiable</span><span class="hint">The Laws of Artisanal Dining cannot all be honored. The kitchen is closed.</span>'); return; }
+    if (!w) { setStatus('<span class="pill err">Unsatisfiable</span><span class="hint">The Principles of Culinary Authenticity cannot all be honored. The kitchen is closed.</span>'); return; }
     render(buildMenu(w.Value), `menu #${seed}`);
     history.replaceState(null, "", `#${seed}`);
     $("#share").hidden = false;
-    setStatus(`<span class="pill ok">All seven laws honored</span><span class="hint">Menu No. ${seed}, slow-solved in ${Math.max(1, Math.round(performance.now() - t0))} ms.</span>`);
+    setStatus(`<span class="pill ok">All eleven principles honored</span><span class="hint">Menu No. ${seed}, slow-solved in ${Math.max(1, Math.round(performance.now() - t0))} ms.</span>`);
   } catch (e) {
     setStatus(`<span class="pill err">Solver error</span><span class="hint">${esc(e && e.message || e)}</span>`);
   } finally { setBusy(false); }
