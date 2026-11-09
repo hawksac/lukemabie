@@ -9,7 +9,7 @@
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,10 +18,12 @@
     <a class="site-brand" href="../../">Luke Mabie</a>
     <a class="back" href="../clingo-garden-planner.html">About this project</a>
   </nav>
-  <header>
+  <header class="catalog-head">
+    <div class="catalog-top"><span>Catalogue No. 3</span><span class="orn" aria-hidden="true">❦</span><span>Spring, Summer &amp; Fall</span></div>
+    <h1><em>The</em>Clingo Garden Planner</h1>
+    <p class="tagline">Reliable plans for the square-foot gardener · Every square proven by logic</p>
     <span class="eyebrow">Answer set programming · clingo running in your browser</span>
-    <h1>Clingo Garden Planner</h1>
-    <p class="lede">Mark where the sun falls on your bed, choose what you want to grow, and a 60-line logic program plans every square foot for spring, summer, and fall. It respects sun needs, companion planting, spacing, and crop rotation, then searches for the plan with the most good neighbors.</p>
+    <p class="lede">Mark where the sun falls on your bed, choose what you want to grow (or add your own plants and change when and where they like to grow), and a 60-line logic program plans every square foot for spring, summer, and fall. It respects sun needs, companion planting, spacing, and crop rotation, then searches for the plan with the most good neighbors.</p>
   </header>
 
   <div class="app">
@@ -49,6 +51,7 @@
 
       <section class="panel" aria-labelledby="crops-h">
         <div class="panel-h"><h2 id="crops-h">What to grow</h2><span class="hint">squares wanted</span></div>
+        <p class="hint">Press ✎ on any plant to change its seasons, sun, or neighbors.</p>
         <div id="crops"></div>
       </section>
     </aside>

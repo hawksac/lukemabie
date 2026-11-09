@@ -1,19 +1,28 @@
-/* Layout: seed-catalog tool. Left rail = the bed you have (sun) and the crops you want; right = the solver's three-season plan on garden graph paper, then the encoding itself. */
+/* Layout: a vintage seed catalog. Left rail = the bed you have (sun) and the crops you want, each
+   crop editable in place; right = the solver's three-season plan on garden graph paper, then the
+   encoding itself. Cream paper and deep green ink by day, deep green and gold by night. */
 :root{
-  --bg:#edf0e6; --surface:#f8faf3; --ink:#1e2a1b; --muted:#5a6855; --line:#cbd3c0; --accent:#3d6a29; --accent-ink:#ffffff; --soil:#6b4a32; --warn:#a6402c;
-  --sun-full:#f3e3a0; --sun-part:#e2e3c9; --sun-shade:#c3cdd4; --hatch:rgba(30,42,27,.28); --link:#2d5f1c;
+  --bg:#f2e9d3; --surface:#fbf5e4; --ink:#1d3325; --muted:#5b6a52; --line:#d9caa4; --accent:#2c5a37; --accent-ink:#fbf5e4; --soil:#6b4a32; --warn:#a6402c;
+  --gold:#b8862b; --stamp:#a8432c; --rule:#1d3325;
+  --spring:#5f8f35; --summer:#c08a1e; --fall:#b0532a;
+  --sun-full:#f3df92; --sun-part:#e6e0c4; --sun-shade:#c3cdd4; --hatch:rgba(29,51,37,.28); --link:#2c5a37;
   --f-solanaceae:#b83a32; --f-lamiaceae:#2f7d58; --f-poaceae:#8f6b14; --f-fabaceae:#557a24; --f-cucurbitaceae:#23767a; --f-asteraceae:#5f63a8; --f-tropaeolaceae:#b04373; --f-apiaceae:#b9581a; --f-amaranthaceae:#8c2f5c; --f-brassicaceae:#3a5f9e; --f-amaryllidaceae:#75528a;
-  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --f-malvaceae:#7d8a1f; --f-rosaceae:#c0405a; --f-convolvulaceae:#9a5a2c; --f-polygonaceae:#4f6f6a; --f-own:#6b6459;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
   --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --r:6px;
+  --r:4px;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#131a11; --surface:#1b2418; --ink:#e2e9d8; --muted:#9ba892; --line:#2f3b2a; --accent:#94c46e; --accent-ink:#13200c; --soil:#c89c78; --warn:#f08a6e;
-  --sun-full:#4c4521; --sun-part:#353a29; --sun-shade:#253039; --hatch:rgba(226,233,216,.22); --link:#b6e08f; color-scheme:dark }}
+  --bg:#12201a; --surface:#192a21; --ink:#efe5cb; --muted:#a8b298; --line:#2f4537; --accent:#d8b257; --accent-ink:#1a1408; --soil:#c89c78; --warn:#f08a6e;
+  --gold:#d8b257; --stamp:#e0846a; --rule:#d8b257;
+  --spring:#9cc46a; --summer:#e2b54a; --fall:#e08a5a;
+  --sun-full:#4c4521; --sun-part:#353a29; --sun-shade:#253039; --hatch:rgba(239,229,203,.22); --link:#d8b257; color-scheme:dark }}
 :root[data-theme="dark"]{
-  --bg:#131a11; --surface:#1b2418; --ink:#e2e9d8; --muted:#9ba892; --line:#2f3b2a; --accent:#94c46e; --accent-ink:#13200c; --soil:#c89c78; --warn:#f08a6e;
-  --sun-full:#4c4521; --sun-part:#353a29; --sun-shade:#253039; --hatch:rgba(226,233,216,.22); --link:#b6e08f; color-scheme:dark }
+  --bg:#12201a; --surface:#192a21; --ink:#efe5cb; --muted:#a8b298; --line:#2f4537; --accent:#d8b257; --accent-ink:#1a1408; --soil:#c89c78; --warn:#f08a6e;
+  --gold:#d8b257; --stamp:#e0846a; --rule:#d8b257;
+  --spring:#9cc46a; --summer:#e2b54a; --fall:#e08a5a;
+  --sun-full:#4c4521; --sun-part:#353a29; --sun-shade:#253039; --hatch:rgba(239,229,203,.22); --link:#d8b257; color-scheme:dark }
 
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 56px}
@@ -148,5 +157,93 @@ body{margin:0}
 .site-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}
 .site-nav a{color:var(--ink);text-decoration:none}
 .site-nav a:hover{text-decoration:underline}
-.site-brand{font-family:var(--display);font-size:1.2rem}
+.site-brand{font-family:"Young Serif", Georgia, serif;font-size:1.2rem}
 .site-nav .back{font-size:.9rem}
+
+
+/* ---------- seed catalog dressing ---------- */
+body{background:
+  radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--surface) 70%, transparent), transparent 60%) no-repeat,
+  repeating-linear-gradient(0deg, transparent 0 3px, color-mix(in srgb, var(--line) 18%, transparent) 3px 4px),
+  var(--bg)}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"opsz" 72}
+.catalog-head{max-width:none;align-items:center;text-align:center;gap:12px;padding:18px 0 22px;border-top:3px double var(--rule);border-bottom:3px double var(--rule)}
+.catalog-top{display:flex;justify-content:center;align-items:center;gap:14px;width:100%;font-family:var(--display);font-style:italic;font-size:.95rem;color:var(--muted)}
+.catalog-top::before,.catalog-top::after{content:"";flex:1;max-width:160px;border-top:1px solid var(--line)}
+.catalog-top .orn{color:var(--stamp);font-style:normal;font-size:1.2rem}
+.catalog-head h1{font-weight:900;font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.01em;line-height:1;font-variation-settings:"opsz" 144, "SOFT" 50, "WONK" 1}
+.catalog-head h1 em{display:block;font-style:italic;font-weight:400;font-size:.36em;letter-spacing:.04em;color:var(--stamp);margin-bottom:.25em}
+.catalog-head .tagline{font-family:var(--display);font-variant:small-caps;letter-spacing:.14em;font-size:.95rem;color:var(--ink)}
+.catalog-head .lede{max-width:68ch;margin-inline:auto}
+.catalog-head .eyebrow{color:var(--muted)}
+
+.panel{border-radius:2px;outline:1px solid var(--line);outline-offset:3px;margin:3px;box-shadow:0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent)}
+.panel h2,.panel h3{font-style:italic;font-weight:600}
+.panel-h h2::before{content:"❧ ";font-style:normal;color:var(--stamp)}
+.crop-group h3{display:flex;align-items:center;gap:10px;font-family:var(--display);font-style:normal;font-variant:small-caps;text-transform:none;font-size:.95rem;letter-spacing:.14em;color:var(--ink);font-weight:600}
+.crop-group h3::after{content:"";flex:1;border-top:1px dotted var(--line)}
+
+/* stamp-style badges */
+.sw{border-radius:50%;box-shadow:inset 0 0 0 2px var(--c), inset 0 0 0 3.5px rgba(255,255,255,.55);font-family:var(--display);font-weight:700;letter-spacing:0}
+.sq .chip{border-radius:50%;inset:14%;font-family:var(--display);box-shadow:inset 0 0 0 2px var(--c), inset 0 0 0 3.5px rgba(255,255,255,.5), 0 1px 0 rgba(0,0,0,.2)}
+
+.btn{border-radius:2px;font-family:var(--display);font-weight:600;letter-spacing:.03em;font-variant:small-caps;font-size:1.02rem;padding:6px 16px}
+.btn.small{padding:3px 12px;font-size:.95rem}
+.stat{border-top:3px double var(--rule)}
+.stat b{font-weight:600}
+.board-h h3{font-weight:700;font-style:italic;font-size:1.2rem}
+.board{--season:var(--accent)}
+.board:nth-child(1){--season:var(--spring)} .board:nth-child(2){--season:var(--summer)} .board:nth-child(3){--season:var(--fall)}
+.board-h{border-bottom:2px solid var(--season);padding-bottom:4px}
+.board-h h3::before{content:"";display:inline-block;width:.55em;height:.55em;border-radius:50%;background:var(--season);margin-right:.4em;vertical-align:.12em}
+.rules h2{font-weight:700}
+.rules li::marker{color:var(--stamp)}
+.enc{border-top:3px double var(--rule);padding-top:24px;position:relative}
+.enc::before{content:"❦";position:absolute;top:-.9em;left:50%;transform:translateX(-50%);background:var(--bg);padding:0 12px;color:var(--stamp);font-size:1.3rem}
+
+/* crop rows + editor */
+.crop{grid-template-columns:auto 1fr auto auto}
+.crop .mine{font-style:italic;font-family:var(--display);font-size:.78em;color:var(--stamp);margin-left:3px}
+.editbtn{border:1px solid transparent;background:none;border-radius:3px;width:28px;height:28px;color:var(--muted);font-size:.95rem;line-height:1}
+.editbtn:hover,.editbtn[aria-expanded="true"]{border-color:var(--line);color:var(--ink);background:var(--bg)}
+.crop-item.open{background:var(--bg);border-radius:3px;box-shadow:inset 3px 0 0 var(--stamp)}
+.crop-item.open .crop.off{opacity:1}
+.crop-edit{display:flex;flex-direction:column;gap:12px;padding:6px 10px 12px 14px}
+.ef{display:flex;flex-direction:column;gap:5px;font-size:.74rem;font-weight:600;color:var(--muted);min-width:0}
+.ef > small{font-weight:400;font-style:italic}
+.ef input[type=text],.ef select{font:inherit;font-size:.86rem;font-weight:400;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:5px 8px;min-width:0}
+.ef-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ef-tall{grid-column:1/-1;font-size:.82rem}
+.seg{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface)}
+.seg button{flex:1;border:0;border-right:1px solid var(--line);background:none;padding:5px 6px;font-size:.82rem;font-weight:500;color:var(--ink)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.pals{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.pal{display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:500;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:1px 2px 1px 2px}
+.pal .sw{width:20px;height:20px;font-size:.58rem}
+.pal button{border:0;background:none;width:20px;height:20px;border-radius:50%;color:var(--muted);font-size:.95rem;line-height:1}
+.pal button:hover{background:var(--bg);color:var(--warn)}
+.pals select{font-size:.8rem;padding:2px 6px;border-style:dashed}
+.ed-actions{display:flex;gap:8px;align-items:center}
+.smallbtn.danger{color:var(--warn);border-color:color-mix(in srgb, var(--warn) 45%, var(--line))}
+.crop-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px dotted var(--line)}
+.addbtn{border:1.5px dashed var(--accent);background:none;color:var(--accent);border-radius:3px;padding:6px 14px;font-family:var(--display);font-weight:600;font-variant:small-caps;letter-spacing:.04em;font-size:1rem}
+.addbtn:hover{background:color-mix(in srgb, var(--accent) 10%, transparent)}
+.linkbtn{border:0;background:none;padding:0;color:var(--muted);font-size:.78rem;text-decoration:underline;text-underline-offset:2px}
+@media print{ .catalog-head .tagline,.catalog-top{display:none!important} body{background:#fff} }
+
+/* Keep the plant list from setting the page height: in two-column layout the
+   rail stretches to the plan column and the list scrolls inside its panel.
+   contain:size stops the list's own length from growing the grid row. */
+@media (min-width:921px){
+  .app{align-items:stretch}
+  .results .lower{flex:1 1 auto}
+  .rail .panel:has(#crops){flex:1 1 auto;overflow:hidden}
+  #crops{flex:1 1 0;min-height:300px;overflow-y:auto;contain:size;overscroll-behavior:contain;
+    margin-inline:-8px;padding-inline:8px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+    mask-image:linear-gradient(#000 calc(100% - 18px),transparent)}
+  #crops .crop-foot{padding-bottom:14px}
+}
+.crop{padding:2px 2px;gap:8px}
+.crop .nm small{font-size:.72rem}
+.crop-group{gap:0}
