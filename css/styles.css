@@ -160,6 +160,10 @@ code, pre { font-family: var(--mono); }
 .solver-note { font-size: 13px; color: var(--muted); }
 
 /* hero truck (side view: doors on the left, cab on the right) */
+.truck-size { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: var(--muted); }
+.truck-size label { display: flex; align-items: center; gap: 8px; flex: 1 1 140px; }
+.truck-size output { font-family: var(--mono); color: var(--ink); min-width: 2ch; }
+.truck-size input[type=range] { flex: 1; min-width: 0; min-height: 32px; accent-color: var(--accent); }
 .truck { position: relative; display: flex; align-items: flex-end; padding-bottom: 14px; }
 .cargo {
   flex: 1; min-width: 0;

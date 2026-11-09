@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=2">
   <meta property="og:title" content="Luke Mabie">
   <meta property="og:description" content="Rule engines, logic programming, and rescuing words from old paper.">
 </head>
@@ -68,6 +68,10 @@
       <div class="solver-stats" aria-live="polite">
         <span>packed <b id="packed">0</b>/<span id="total">15</span> · broken <b id="broken">0</b></span>
         <span class="status" id="status">ready</span>
+      </div>
+      <div class="truck-size">
+        <label>Length <output id="truck-len-out">8</output><input type="range" id="truck-len" min="4" max="12" step="1" value="8"></label>
+        <label>Height <output id="truck-hgt-out">5</output><input type="range" id="truck-hgt" min="3" max="7" step="1" value="5"></label>
       </div>
       <div class="truck">
         <div class="cargo" id="cargo" role="group" aria-label="Moving truck, side view, 8 squares long and 5 high. Doors on the left."></div>
@@ -189,7 +193,7 @@
     <span>lukemabie.com</span>
   </footer>
 </div>
-<script src="js/truck.js"></script>
+<script src="js/truck.js?v=2"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

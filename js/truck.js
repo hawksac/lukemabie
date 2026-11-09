@@ -1,7 +1,10 @@
 // Hero toy: a tiny stand-in for clingo. It packs a moving truck (a side view,
-// 8 squares long and 5 high) so that every rule shown beside it holds: each
+// 8 squares long and 5 high by default, resizable) so that every rule shown
+// beside it holds: each
 // item gets one spot, no two items share a square, nothing floats, heavy things
-// ride on the floor, and nothing sits on top of anything fragile.
+// ride on the floor, and nothing sits on top of anything fragile. When the
+// truck is too small for everything, it packs as many items as it can and
+// leaves the rest on the curb.
 (function () {
   var W = 8, H = 5;
   var KINDS = {
@@ -38,6 +41,10 @@
   var lines = document.querySelectorAll('#rules .ln');
   var solveBtn = document.getElementById('solve');
   var clearBtn = document.getElementById('clear');
+  var lenIn = document.getElementById('truck-len');
+  var hgtIn = document.getElementById('truck-hgt');
+  var lenOut = document.getElementById('truck-len-out');
+  var hgtOut = document.getElementById('truck-hgt-out');
   document.getElementById('total').textContent = ITEMS.length;
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -49,17 +56,26 @@
   // Grid rows count down from the top in CSS, while y counts up from the floor.
   function rowOf(y, h) { return (H - y - h + 1) + ' / span ' + h; }
 
-  for (var x = 0; x < W; x++) {
-    slots.push([]);
-    for (var y = 0; y < H; y++) {
-      var s = document.createElement('span');
-      s.className = 'slot';
-      s.style.gridColumn = (x + 1);
-      s.style.gridRow = rowOf(y, 1);
-      cargo.appendChild(s);
-      slots[x].push(s);
+  // (Re)build the empty squares for the current W x H.
+  function build() {
+    slots.forEach(function (col) { col.forEach(function (s) { s.remove(); }); });
+    slots = [];
+    cargo.style.gridTemplateColumns = 'repeat(' + W + ', minmax(0, 1fr))';
+    cargo.setAttribute('aria-label', 'Moving truck, side view, ' + W + ' squares long and ' +
+      H + ' high. Doors on the left.');
+    for (var x = 0; x < W; x++) {
+      slots.push([]);
+      for (var y = 0; y < H; y++) {
+        var s = document.createElement('span');
+        s.className = 'slot';
+        s.style.gridColumn = (x + 1);
+        s.style.gridRow = rowOf(y, 1);
+        cargo.appendChild(s);
+        slots[x].push(s);
+      }
     }
   }
+  build();
   Object.keys(KINDS).forEach(function (k) {
     var s = document.createElement('span');
     s.innerHTML = '<i style="background:' + KINDS[k].color + '"></i>' + KINDS[k].name;
@@ -111,12 +127,15 @@
       for (var dy = 0; dy < ITEMS[i].h; dy++) g[x + dx][y + dy] = v;
   }
 
-  // Plan a full packing up front with a small backtracking search, then replay
-  // it, so every item the animation drops in already satisfies all the rules.
+  // Plan a packing up front with a small backtracking search, then replay it,
+  // so every item the animation drops in already satisfies all the rules.
   // Items are placed bottom-up, which is how "nothing floats" can be checked
-  // the moment each one lands.
+  // the moment each one lands. Leaving an item behind is the last option tried
+  // for each one, so a full packing is found whenever the search can find one;
+  // otherwise the search keeps the packing that fits the most items.
   function plan() {
-    for (var attempt = 0; attempt < 20; attempt++) {
+    var n = ITEMS.length, best = [];
+    for (var attempt = 0; attempt < 20 && best.length < n; attempt++) {
       var order = ITEMS.map(function (_, i) { return i; });
       var heavy = shuffle(order.filter(function (i) { return ITEMS[i].kind === 'heavy'; }));
       var rest = order.filter(function (i) { return ITEMS[i].kind !== 'heavy'; })
@@ -126,9 +145,11 @@
       order = heavy.concat(rest);
 
       var g = emptyGrid(), steps = [], budget = 4000;
-      var ok = (function dfs(k) {
-        if (k === order.length) return true;
-        if (--budget < 0) return false;
+      (function dfs(k) {
+        if (steps.length > best.length) best = steps.slice();
+        if (best.length === n) return true;
+        if (k === n || --budget < 0) return false;
+        if (steps.length + (n - k) <= best.length) return false; // can't beat the best
         var i = order[k], spots = [];
         for (var x = 0; x <= W - ITEMS[i].w; x++)
           for (var y = 0; y <= H - ITEMS[i].h; y++)
@@ -141,11 +162,15 @@
           steps.pop();
           put(g, i, spots[s].x, spots[s].y, -1);
         }
-        return false;
+        return dfs(k + 1); // leave item i on the curb
       })(0);
-      if (ok) return steps;
     }
-    return [];
+    return best;
+  }
+
+  function doneText(steps) {
+    var left = ITEMS.length - steps.length;
+    return left ? 'packed · ' + left + ' left on the curb' : 'packed';
   }
 
   function hot(k) {
@@ -209,11 +234,11 @@
   function solve() {
     unload();
     var steps = plan();
-    if (!steps.length) { statusEl.textContent = 'unsatisfiable'; return; }
+    if (!steps.length) { statusEl.textContent = 'nothing fits'; return; }
     if (reduce) {
       steps.forEach(function (s) { addItem(s[0], s[1], s[2], false); });
       stats();
-      statusEl.textContent = 'packed';
+      statusEl.textContent = doneText(steps);
       return;
     }
     statusEl.textContent = 'packing…';
@@ -222,7 +247,7 @@
       if (k >= steps.length) {
         stop();
         stats();
-        statusEl.textContent = 'packed';
+        statusEl.textContent = doneText(steps);
         return;
       }
       var s = steps[k++];
@@ -266,12 +291,26 @@
     flashTimer = setTimeout(function () {
       unflash();
       hot(-1);
-      if (!timer) statusEl.textContent = 'packed';
+      if (!timer) statusEl.textContent = doneText(placed.filter(Boolean));
     }, 1600);
   }
 
   solveBtn.addEventListener('click', solve);
   clearBtn.addEventListener('click', clear);
+
+  // Resizing the truck rebuilds the grid and packs it again.
+  function resize() {
+    W = Number(lenIn.value); H = Number(hgtIn.value);
+    lenOut.textContent = W; hgtOut.textContent = H;
+    unload();
+    build();
+    solve();
+  }
+  if (lenIn && hgtIn) {
+    lenIn.value = W; hgtIn.value = H;
+    lenIn.addEventListener('input', resize);
+    hgtIn.addEventListener('input', resize);
+  }
 
   // Start packing when the truck scrolls into view (right away on most screens).
   if ('IntersectionObserver' in window) {
