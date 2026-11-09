@@ -58,7 +58,9 @@
   <div class="prose-grid">
     <section class="prose">
       <h2>What was hard</h2>
-      <p>Thinking in constraints instead of steps. My instinct as an engineer is to write the loop; in Clingo you write what must be true and let the solver find it. <span class="todo">[Add the moments where it clicked, or where grounding blew up.]</span></p>
+      <p>Thinking in constraints instead of steps. My instinct as an engineer is to write the loop; in Clingo you write what must be true and let the solver find it. My first version was a recipe in disguise: rules that placed the tall crops first and then filled in around them. It worked, but only because I'd already done the solving in my head.</p>
+      <p>It clicked with shade. I'd been trying to work out where the tomatoes should go so they wouldn't block the lettuce. Instead I wrote down one fact (a tall crop knocks the square to its north down one sun level) and one rule (nothing sits in less light than it needs). Clingo started lining the tall crops up along the north edge on its own. I never told it to.</p>
+      <p>Grounding was the other lesson. Before it solves anything, Clingo writes out every rule for every combination of values, so a rule that reads as harmless can quietly explode. My first distance rule compared every square with every other square, in both directions, at any distance. Capping it at three squares, the farthest any spacing rule ever looks, and counting each pair only once made grounding instant again. Now I read every rule twice: once for what it means, and once for how big it gets.</p>
     </section>
     <section class="prose">
       <h2>What I think now</h2>
