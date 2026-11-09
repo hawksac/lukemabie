@@ -11,6 +11,8 @@ projects/whodunit/                   logic mystery game; clingo writes and check
 projects/hipster-menu/               menu generator; clingo obeys the Laws of Artisanal Dining (also a Python CLI)
 projects/binary-clock/              binary clock (two layouts, no solver)
 css/styles.css                    all styles (light + dark mode)
+audio/<band>/<album>/             songs for the B-Sides tape player (streamed, no download links)
+js/tapes.js                       B-Sides tape deck: plays the albums listed in b-sides.html
 js/truck.js                       hero animation (packs an 8×5 moving truck)
 js/solver.js                      old garden-bed hero animation (unused)
 js/compare.js                     OCR vs. transcription wipe
@@ -39,6 +41,15 @@ New experiments go in `projects/<name>/`. Then copy the `<li>` in the
 Workbench list in `index.html` to the top of that list and set its status
 (class `live`, `progress`, or `paused`; label text is up to you).
 A Workbench item can move up to Projects once it has a write-up.
+
+## Adding songs to B-Sides
+
+Copy the files into `audio/<band>/<album>/` with names like `01-song-title.mp3`
+(MP3 or M4A), then copy a `.tape` block in `b-sides.html` and list one
+`<li><button data-src="...">` per song. `js/tapes.js` picks up every tape on the page.
+
+`python3 -m http.server` can't send part of a file, so dragging the song
+scrubber won't work in local preview. Playback does, and any real host supports seeking.
 
 ## Before going live
 
