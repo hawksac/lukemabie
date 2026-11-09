@@ -91,6 +91,24 @@ code, pre { font-family: var(--mono); }
 .nav-links a { text-decoration: none; }
 .nav-links a:hover { text-decoration: underline; }
 
+/* mini binary clock (js/mini-clock.js); links to projects/binary-clock/ */
+.nav-links { margin-left: auto; }
+.mini-clock { display: inline-flex; padding: 4px; margin: -4px -4px -4px 12px; border-radius: 4px; }
+@media (max-width: 720px) {
+  /* name and clock share the top row; links wrap underneath */
+  .nav-links { order: 3; flex-basis: 100%; margin-left: 0; gap: 8px 20px; }
+}
+.mini-clock-grid { display: flex; gap: 3px; }
+.mc-col { display: flex; flex-direction: column; gap: 3px; }
+.mc-col:nth-child(2n+3) { margin-left: 4px; } /* space between HH, MM, SS */
+.mc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background-color .25s; }
+.mc-dot.mc-none { visibility: hidden; }
+.mc-h .mc-dot.on { background: var(--tomato); }
+.mc-m .mc-dot.on { background: var(--corn); }
+.mc-s .mc-dot.on { background: var(--squash); }
+.mini-clock:hover .mc-dot:not(.on) { background: var(--muted); opacity: .45; }
+@media (prefers-reduced-motion: reduce) { .mc-dot { transition: none; } }
+
 .eyebrow {
   font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
   font-weight: 600; color: var(--muted);

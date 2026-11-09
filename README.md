@@ -9,6 +9,7 @@ projects/garden-planner/             interactive planner + clingo WebAssembly
 projects/the-buck-ends-here.html  with the before/after scan slider
 projects/whodunit/                   logic mystery game; clingo writes and checks each case
 projects/hipster-menu/               menu generator; clingo obeys the Laws of Artisanal Dining (also a Python CLI)
+projects/binary-clock/              binary clock (two layouts, no solver)
 css/styles.css                    all styles (light + dark mode)
 js/truck.js                       hero animation (packs an 8×5 moving truck)
 js/solver.js                      old garden-bed hero animation (unused)

@@ -1,0 +1,113 @@
+/* Binary Clock: same Field Notes palette as the homepage. Hours are tomato,
+   minutes corn, seconds squash. Off lights are empty rings; lit ones glow. */
+:root{
+  --bg:#edf0e6; --surface:#f8faf3; --ink:#1e2a1b; --muted:#4d5a48; --line:#cbd3c0;
+  --accent:#3d6a29; --accent-ink:#fff; --link:#2d5f1c; --off:#e2e7d8;
+  --tomato:#b83a32; --tomato-ink:#a8342d;
+  --corn:#b5860f;   --corn-ink:#7a5b10;
+  --squash:#23767a; --squash-ink:#1f6a6e;
+  --glow:.35;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r:6px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#131a11; --surface:#1b2418; --ink:#e2e9d8; --muted:#9ba892; --line:#2f3b2a;
+  --accent:#94c46e; --accent-ink:#13200c; --link:#b6e08f; --off:#232e20;
+  --tomato:#e0605a; --tomato-ink:#f08a7e;
+  --corn:#e2b03a;   --corn-ink:#e2b752;
+  --squash:#3fb3b8; --squash-ink:#66c9cd;
+  --glow:.6;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#131a11; --surface:#1b2418; --ink:#e2e9d8; --muted:#9ba892; --line:#2f3b2a;
+  --accent:#94c46e; --accent-ink:#13200c; --link:#b6e08f; --off:#232e20;
+  --tomato:#e0605a; --tomato-ink:#f08a7e;
+  --corn:#e2b03a;   --corn-ink:#e2b752;
+  --squash:#3fb3b8; --squash-ink:#66c9cd;
+  --glow:.6;
+  color-scheme:dark }
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;padding:28px 16px 64px}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.12;text-wrap:balance}
+h1{font-size:clamp(2.2rem,5vw,3.4rem)}
+h2{font-size:1.5rem}
+h3{font-size:1.1rem}
+p{margin:0}
+code{font-family:var(--mono);font-size:.9em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.site-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.site-nav a{color:var(--ink);text-decoration:none}
+.site-nav a:hover{text-decoration:underline}
+.site-brand{font-family:var(--display);font-size:1.2rem}
+.site-nav .back{font-size:.9rem}
+
+header{display:flex;flex-direction:column;gap:12px;max-width:62ch}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.lede{font-size:1.15rem;color:var(--muted)}
+
+/* the face */
+.face{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;
+  display:flex;flex-direction:column;gap:24px;align-items:center}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:center;width:100%}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.seg button{font:inherit;font-size:14px;font-weight:500;padding:8px 12px;min-height:40px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.check{display:inline-flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;min-height:40px}
+.check input{accent-color:var(--accent);width:18px;height:18px}
+
+.clock{--dot:clamp(28px,9vw,56px);--gap:clamp(8px,2.2vw,14px);display:flex;gap:calc(var(--gap)*2);justify-content:center;max-width:100%}
+.group{display:flex;gap:var(--gap)}
+.col{display:flex;flex-direction:column;gap:var(--gap);align-items:center}
+.weights{display:flex;flex-direction:column;gap:var(--gap);align-items:flex-end;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.weights span{height:var(--dot);display:flex;align-items:center}
+
+.dot{width:var(--dot);height:var(--dot);border-radius:50%;border:2px solid var(--line);background:var(--off);
+  transition:background-color .25s,border-color .25s,box-shadow .25s}
+.dot.none{visibility:hidden}
+.h .dot.on{--c:var(--tomato)} .m .dot.on{--c:var(--corn)} .s .dot.on{--c:var(--squash)}
+.dot.on{background:var(--c);border-color:var(--c);
+  box-shadow:0 0 calc(var(--dot)*.35) color-mix(in srgb,var(--c) calc(var(--glow)*100%),transparent)}
+@media (prefers-reduced-motion:reduce){.dot{transition:none}}
+
+.label{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:center;min-height:1.4em;white-space:nowrap}
+.h .label b{color:var(--tomato-ink)} .m .label b{color:var(--corn-ink)} .s .label b{color:var(--squash-ink)}
+.label b{font-weight:500;font-size:16px}
+.no-hints .label{visibility:hidden}
+
+/* pure binary: rows */
+.clock.pure{flex-direction:column;gap:var(--gap);align-items:stretch}
+.clock.pure{--dot:clamp(26px,8vw,48px)}
+.row{display:grid;grid-template-columns:4.5em auto 6.5em;gap:var(--gap);align-items:center}
+.row .bits{display:flex;gap:var(--gap);justify-content:flex-end}
+.row .unit{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
+.row .label{text-align:left}
+.bit-weights{display:grid;grid-template-columns:4.5em auto 6.5em;gap:var(--gap)}
+.bit-weights .bits{display:flex;gap:var(--gap);justify-content:flex-end}
+.bit-weights .bits span{width:var(--dot);text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+@media (max-width:520px){
+  .row,.bit-weights{grid-template-columns:auto auto}
+  .row .label,.bit-weights > :last-child{grid-column:1 / -1;text-align:center}
+  .row .label{margin-top:-4px}
+  .clock.pure{gap:6px}
+}
+
+.readout{font-family:var(--mono);font-size:1.6rem;letter-spacing:.06em}
+.no-hints .readout{visibility:hidden}
+
+/* how to read */
+.how{display:flex;flex-direction:column;gap:18px}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px}
+.how-grid > div{display:flex;flex-direction:column;gap:10px;border-left:3px solid var(--line);padding-left:16px}
+.how-grid p{color:var(--muted)}
+
+footer{color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px}

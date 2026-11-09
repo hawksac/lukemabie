@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/styles.css?v=5">
   <meta property="og:title" content="Luke Mabie">
   <meta property="og:description" content="Rule engines, logic programming, and rescuing words from old paper.">
 </head>
@@ -48,6 +48,7 @@
       <a href="b-sides.html">B-Sides</a>
       <a href="#contact">Consulting</a>
     </div>
+    <a class="mini-clock" href="projects/binary-clock/" aria-label="Binary clock" title="What time is it? Click to learn to read it."></a>
   </nav>
 
   <main id="main" style="display: contents">
@@ -150,6 +151,11 @@
     <ul class="bench">
       <li>
         <span class="bench-status live">live</span>
+        <a href="projects/binary-clock/">Binary clock</a>
+        <span class="bench-note">Tells the time in powers of two. Hard for a minute, then weirdly easy.</span>
+      </li>
+      <li>
+        <span class="bench-status live">live</span>
         <a href="projects/hipster-menu/">Hipster Menu Generator</a>
         <span class="bench-note">Seven Laws of Artisanal Dining, written as logic. Ramps are mandatory.</span>
       </li>
@@ -194,6 +200,7 @@
   </footer>
 </div>
 <script src="js/truck.js?v=2"></script>
+<script src="js/mini-clock.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

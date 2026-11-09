@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:">
+<title>Binary Clock · Luke Mabie</title>
+<meta name="description" content="A binary clock you can learn to read in a minute. Every light is a power of two; add up the lit ones to get the time.">
+<link rel="canonical" href="https://lukemabie.com/projects/binary-clock/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="site-nav" aria-label="Main">
+    <a class="site-brand" href="../../">Luke Mabie</a>
+    <a class="back" href="../../#workbench">Workbench</a>
+  </nav>
+
+  <header>
+    <span class="eyebrow">Workbench · ones and zeros</span>
+    <h1>Binary Clock</h1>
+    <p class="lede">Every light is worth a power of two. Add up the lit ones in a column and you have the digit. It feels impossible for about a minute, and then you can't stop reading it.</p>
+  </header>
+
+  <section class="face" aria-labelledby="face-h">
+    <h2 id="face-h" class="sr-only">The clock</h2>
+
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Layout">
+        <button type="button" data-mode="bcd" aria-pressed="true">By digit</button>
+        <button type="button" data-mode="pure" aria-pressed="false">By unit</button>
+      </div>
+      <div class="seg" role="group" aria-label="Hour format">
+        <button type="button" data-h="24" aria-pressed="true">24h</button>
+        <button type="button" data-h="12" aria-pressed="false">12h</button>
+      </div>
+      <label class="check"><input type="checkbox" id="hints" checked> Show the math</label>
+    </div>
+
+    <div class="clock" id="clock" aria-hidden="true"></div>
+
+    <p class="readout"><span class="sr-only">The time is </span><time id="readout">--:--:--</time></p>
+  </section>
+
+  <section class="how" aria-labelledby="how-h">
+    <h2 id="how-h">How to read it</h2>
+    <div class="how-grid">
+      <div>
+        <h3>By digit</h3>
+        <p>This is the layout most binary clocks use, called binary-coded decimal. Each of the six columns is one digit of <code>HH:MM:SS</code>. Rows are worth 8, 4, 2 and 1 from top to bottom. A column with the 4 and the 1 lit is a 5.</p>
+        <p>Some spots are missing on purpose. The first hour digit never goes past 2, and the first minute and second digits never go past 5, so they don't need the 8 (or the 4).</p>
+      </div>
+      <div>
+        <h3>By unit</h3>
+        <p>This is real binary: hours, minutes, and seconds each get one row, and the whole number is written in base two. The lights from right to left are worth 1, 2, 4, 8, 16 and 32.</p>
+        <p>Minutes and seconds need six lights because 59 is <code>111011</code>. Hours only need five, since 23 is <code>10111</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Plain JavaScript, no solver this time. It reads your device's clock once a second. The time zone is yours.</footer>
+</div>
+
+<script src="clock.js"></script>
+</body>
+</html>
