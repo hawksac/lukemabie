@@ -9,61 +9,87 @@
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=Lora:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Lora:ital@0;1&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="wrap">
   <nav class="site-nav" aria-label="Main">
     <a class="site-brand" href="../../">Luke Mabie</a>
-    <a class="back" href="../../#workbench">Workbench</a>
+    <svg class="festoon" viewBox="0 0 420 58" aria-hidden="true" focusable="false"><path class="wire" d="M0,6 Q210.0,46 420,6"/><g><line x1="46.7" y1="13.9" x2="46.7" y2="19.9"/><rect x="44.2" y="18.9" width="5" height="4" rx="1"/><ellipse cx="46.7" cy="28.9" rx="5" ry="7"/><path d="M45.1,30.9 q1.6,-5 3.2,0" /></g><g><line x1="93.3" y1="19.8" x2="93.3" y2="25.8"/><rect x="90.8" y="24.8" width="5" height="4" rx="1"/><ellipse cx="93.3" cy="34.8" rx="5" ry="7"/><path d="M91.7,36.8 q1.6,-5 3.2,0" /></g><g class="flicker"><line x1="140.0" y1="23.8" x2="140.0" y2="29.8"/><rect x="137.5" y="28.8" width="5" height="4" rx="1"/><ellipse cx="140.0" cy="38.8" rx="5" ry="7"/><path d="M138.4,40.8 q1.6,-5 3.2,0" /></g><g><line x1="186.7" y1="25.8" x2="186.7" y2="31.8"/><rect x="184.2" y="30.8" width="5" height="4" rx="1"/><ellipse cx="186.7" cy="40.8" rx="5" ry="7"/><path d="M185.1,42.8 q1.6,-5 3.2,0" /></g><g class="flicker slow"><line x1="233.3" y1="25.8" x2="233.3" y2="31.8"/><rect x="230.8" y="30.8" width="5" height="4" rx="1"/><ellipse cx="233.3" cy="40.8" rx="5" ry="7"/><path d="M231.7,42.8 q1.6,-5 3.2,0" /></g><g><line x1="280.0" y1="23.8" x2="280.0" y2="29.8"/><rect x="277.5" y="28.8" width="5" height="4" rx="1"/><ellipse cx="280.0" cy="38.8" rx="5" ry="7"/><path d="M278.4,40.8 q1.6,-5 3.2,0" /></g><g class="flicker"><line x1="326.7" y1="19.8" x2="326.7" y2="25.8"/><rect x="324.2" y="24.8" width="5" height="4" rx="1"/><ellipse cx="326.7" cy="34.8" rx="5" ry="7"/><path d="M325.1,36.8 q1.6,-5 3.2,0" /></g><g><line x1="373.3" y1="13.9" x2="373.3" y2="19.9"/><rect x="370.8" y="18.9" width="5" height="4" rx="1"/><ellipse cx="373.3" cy="28.9" rx="5" ry="7"/><path d="M371.7,30.9 q1.6,-5 3.2,0" /></g></svg>
+    <a class="back" href="../../#workbench">Return to the Workbench</a>
   </nav>
+  <div class="ticker" role="marquee" aria-label="Tonight's specials">
+    <span class="ticker-label">Specials</span>
+    <div class="ticker-track"><div class="ticker-run"><span>Tonight: ramps, again <span aria-hidden="true">✶</span> Our kombucha has entered its second fermentation, and so have we <span aria-hidden="true">✶</span> The bartender is between projects <span aria-hidden="true">✶</span> Oysters are sourced from a bivalve we know personally <span aria-hidden="true">✶</span> Now pouring: water (ask in writing) <span aria-hidden="true">✶</span> The sourdough starter is 41 years old and has opinions <span aria-hidden="true">✶</span> Brunch is cancelled until further notice, for authenticity <span aria-hidden="true">✶</span> Every chair was once a different chair <span aria-hidden="true">✶</span> </span><span aria-hidden="true">Tonight: ramps, again <span aria-hidden="true">✶</span> Our kombucha has entered its second fermentation, and so have we <span aria-hidden="true">✶</span> The bartender is between projects <span aria-hidden="true">✶</span> Oysters are sourced from a bivalve we know personally <span aria-hidden="true">✶</span> Now pouring: water (ask in writing) <span aria-hidden="true">✶</span> The sourdough starter is 41 years old and has opinions <span aria-hidden="true">✶</span> Brunch is cancelled until further notice, for authenticity <span aria-hidden="true">✶</span> Every chair was once a different chair ✶ </span></div></div>
+  </div>
 
-  <header>
-    <span class="eyebrow">Answer set programming · clingo running in your browser</span>
-    <h1>Hipster Menu Generator</h1>
-    <p class="lede">Seven Laws of Artisanal Dining, written as logic. Every menu clingo finds obeys all of them: ramps are mandatory, nothing appears twice, and the more pretentious a dish is, the more it costs.</p>
+  <div class="hero">
+  <header class="masthead">
+    <span class="eyebrow">Vol. III &nbsp;❧&nbsp; A solver-forward dining concept &nbsp;❧&nbsp; Est. before it was cool</span>
+    <h1><span class="the">The</span> Hipster Menu Generator<sup class="tm">™</sup></h1>
+    <p class="subtitle">An answer-set tasting experience, in seven laws.</p>
+    <p class="lede">We don't generate menus. We let them <em>emerge</em>. Each one is coaxed, slowly, from seven hand-written Laws of Artisanal Dining by clingo, a small-batch solver from Potsdam, compiled to WebAssembly and served in your browser at room temperature. No two menus are alike, unless you share the link, which we'd honestly prefer you didn't.</p>
   </header>
 
-  <div class="toolbar">
-    <button type="button" class="btn" id="new">New menu</button>
-    <button type="button" class="btn ghost" id="max">Most pretentious</button>
-    <button type="button" class="btn ghost" id="stop" hidden>Stop</button>
-    <span class="spacer"></span>
-    <button type="button" class="smallbtn" id="share" hidden>Copy link</button>
+  <aside class="colophon" aria-label="Colophon">
+    <span class="colophon-mark" aria-hidden="true">❦</span>
+    <blockquote>
+      <p>&ldquo;Every menu is unique, like you. But more so.&rdquo;</p>
+      <footer>Our solver, probably</footer>
+    </blockquote>
+    <dl class="provenance">
+      <div><dt>Solver</dt><dd>clingo, Potassco. Single origin.</dd></div>
+      <div><dt>Runtime</dt><dd>WebAssembly, unfiltered</dd></div>
+      <div><dt>Latency</dt><dd>A few milliseconds. Frankly a little gauche.</dd></div>
+    </dl>
+    <p class="colophon-foot">Set in Playfair Display &amp; Lora.<br>Solved to order. Best enjoyed ironically.</p>
+  </aside>
   </div>
-  <div class="status" id="status" aria-live="polite"><span class="pill busy">Loading clingo</span></div>
+
+  <div class="toolbar">
+    <button type="button" class="btn" id="new">Commission a menu</button>
+    <button type="button" class="btn ghost" id="max">Pursue peak pretension</button>
+    <button type="button" class="btn ghost" id="stop" hidden>Enough</button>
+    <span class="spacer"></span>
+    <button type="button" class="smallbtn" id="share" hidden>Share the experience</button>
+  </div>
+  <div class="status" id="status" aria-live="polite"><span class="pill busy">Hand-loading clingo</span></div>
 
   <article class="menu" id="menu" aria-live="off" hidden></article>
 
+  <div class="fleuron" aria-hidden="true">❦</div>
+
   <section class="enc" aria-labelledby="laws-h">
     <div class="rules">
+      <span class="eyebrow">Our philosophy</span>
       <h2 id="laws-h">The Laws of Artisanal Dining</h2>
-      <p>The program never says how to write a menu. It lists the vocabulary, lets clingo choose, and forbids anything that breaks a law:</p>
+      <p>The program never tells clingo <em>how</em> to write a menu. That would be prescriptive, and frankly a little corporate. It lists the vocabulary, lets the solver choose, and forbids anything that breaks a law:</p>
       <ol>
-        <li><b>No ingredient appears twice</b> anywhere on the menu.</li>
-        <li><b>Every dish has a buzzword</b>: foraged, pickled, heritage, fermented, house-made, or local. <span class="hint">On the menu, the buzzword is <span class="buzz-sample">underlined</span>.</span></li>
-        <li><b>Ramps are mandatory.</b></li>
+        <li><b>No ingredient appears twice</b> anywhere on the menu. Repetition is for chains.</li>
+        <li><b>Every dish has a buzzword</b>: foraged, pickled, heritage, fermented, house-made, or local. <span class="hint">On the menu, the buzzword is <span class="buzz-sample">underlined</span>, so you know where to look impressed.</span></li>
+        <li><b>Ramps are mandatory.</b> This is not up for discussion.</li>
         <li><b>At most one dish is deconstructed.</b> We're not animals.</li>
-        <li><b>Every large plate costs more than every small plate.</b></li>
-        <li><b>Each cocktail gets its own</b> spirit, vessel, garnish and name, and at least one involves smoke.</li>
-        <li><b>Prices go up with pretension:</b> $8, $18 or $11 plus the pretension of everything on the plate or in the glass.</li>
+        <li><b>Every large plate costs more than every small plate.</b> The small plates are still not cheap.</li>
+        <li><b>Each cocktail gets its own</b> spirit, vessel, garnish and name, and at least one involves smoke. A cocktail without smoke is just a drink.</li>
+        <li><b>Prices go up with pretension:</b> $8, $18 or $11 plus the pretension of everything on the plate or in the glass. Honesty is our only affordable ingredient.</li>
       </ol>
-      <p class="hint"><b>Most pretentious</b> adds one line, a <code>#maximize</code> over total pretension, and shows each better menu as clingo finds it. Proving nothing beats the best one takes far longer than anyone should wait, so it stops after a few seconds.</p>
+      <p class="hint"><b>Pursue peak pretension</b> adds a single line, a <code>#maximize</code> over total pretension, and shows each more insufferable menu as clingo finds it. Proving nothing beats the best one takes far longer than anyone should wait, so it stops after a few seconds. We call this restraint.</p>
     </div>
     <div style="min-width:0">
       <div class="codehead">
+        <span class="eyebrow">The source, unfiltered</span>
         <div class="row" role="group" aria-label="Code view">
           <button type="button" class="smallbtn" data-file="menu.lp" aria-pressed="true">menu.lp</button>
           <button type="button" class="smallbtn" data-file="maximize.lp" aria-pressed="false">maximize.lp</button>
+          <a class="smallbtn" id="dl" href="menu.lp" download>Take it home</a>
         </div>
-        <a class="smallbtn" id="dl" href="menu.lp" download>Download</a>
       </div>
       <pre id="code" tabindex="0"></pre>
     </div>
   </section>
 
-  <footer>Inspired by the 2015 Brooklyn Bar Menu Generator. Built with clingo (Potassco) via clingo-wasm, the same solver behind the <a href="../garden-planner/">garden planner</a> and the <a href="../whodunit/">whodunit</a>.</footer>
+  <footer>Inspired by the 2015 Brooklyn Bar Menu Generator, which we were into before it was cool. Built with clingo (Potassco) via clingo-wasm, the same solver behind the <a href="../garden-planner/">garden planner</a> and the <a href="../whodunit/">whodunit</a>. No algorithms were harmed in the making of this menu. A few were mildly inconvenienced.</footer>
 </div>
 
 <script type="module" src="app.js"></script>

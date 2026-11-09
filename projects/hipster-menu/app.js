@@ -125,18 +125,18 @@ async function newMenu(seed) {
   if (busy) return;
   setBusy(true);
   if (seed == null) seed = 1 + Math.floor(Math.random() * 999999);
-  setStatus('<span class="pill busy">Consulting the laws</span>');
+  setStatus('<span class="pill busy">Foraging for an answer set</span>');
   try {
     await getClingo();
     const t0 = performance.now();
     const res = await clingo.run(files["menu.lp"], 1, seedArgs(seed));
     if (res.Result === "ERROR") throw new Error(res.Error);
     const w = res.Call?.[res.Call.length - 1]?.Witnesses?.[0];
-    if (!w) { setStatus('<span class="pill err">Unsatisfiable</span><span class="hint">The Laws of Artisanal Dining cannot all be obeyed.</span>'); return; }
+    if (!w) { setStatus('<span class="pill err">Unsatisfiable</span><span class="hint">The Laws of Artisanal Dining cannot all be honored. The kitchen is closed.</span>'); return; }
     render(buildMenu(w.Value), `menu #${seed}`);
     history.replaceState(null, "", `#${seed}`);
     $("#share").hidden = false;
-    setStatus(`<span class="pill ok">All seven laws obeyed</span><span class="hint">Menu #${seed}, found in ${Math.max(1, Math.round(performance.now() - t0))} ms.</span>`);
+    setStatus(`<span class="pill ok">All seven laws honored</span><span class="hint">Menu No. ${seed}, slow-solved in ${Math.max(1, Math.round(performance.now() - t0))} ms.</span>`);
   } catch (e) {
     setStatus(`<span class="pill err">Solver error</span><span class="hint">${esc(e && e.message || e)}</span>`);
   } finally { setBusy(false); }
@@ -153,7 +153,7 @@ async function mostPretentious() {
   const t0 = performance.now();
   stopFn = () => { if (stopped) return; stopped = true; try { clingo.restart(); } catch (e) {} resolveStop({ stopped: true }); };
   const tick = setInterval(() => {
-    setStatus(`<span class="pill busy">Raising the pretension</span><span class="hint">${best ? `score ${best.pretension}` : "warming up"} · ${n} better menu${n === 1 ? "" : "s"} · ${((performance.now() - t0) / 1000).toFixed(1)} of ${MAX_SECONDS} s</span>`);
+    setStatus(`<span class="pill busy">Raising the pretension</span><span class="hint">${best ? `score ${best.pretension}` : "tempering the solver"} · ${n} more insufferable menu${n === 1 ? "" : "s"} · ${((performance.now() - t0) / 1000).toFixed(1)} of ${MAX_SECONDS} s</span>`);
   }, 200);
   const timer = setTimeout(() => stopFn(), MAX_SECONDS * 1000);
   const onModel = (m) => {
@@ -174,13 +174,13 @@ async function mostPretentious() {
   if (res && res.Result === "ERROR" && !stopped) {
     setStatus(`<span class="pill err">Solver error</span><span class="hint">${esc(res.Error || "unknown")}</span>`);
   } else if (!best) {
-    setStatus('<span class="pill err">No menu yet</span><span class="hint">Stopped before the first menu.</span>');
+    setStatus('<span class="pill err">No menu yet</span><span class="hint">Stopped before the first menu. Perhaps that\'s the point.</span>');
   } else {
     const proven = !stopped && res && (res.Result === "OPTIMUM FOUND" || res.Models?.Optimum === "yes");
     render(best, proven ? "proven maximum" : "most pretentious found");
     setStatus(proven
-      ? `<span class="pill ok">Peak pretension</span><span class="hint">Score ${best.pretension}, and clingo proved nothing beats it (${secs} s).</span>`
-      : `<span class="pill ok">Score ${best.pretension}</span><span class="hint">${n} increasingly pretentious menus in ${secs} s. A longer search might find worse.</span>`);
+      ? `<span class="pill ok">Peak pretension</span><span class="hint">Score ${best.pretension}, and clingo proved nothing could be more insufferable (${secs} s).</span>`
+      : `<span class="pill ok">Score ${best.pretension}</span><span class="hint">${n} increasingly pretentious menus in ${secs} s. A longer search might find worse. We chose not to look.</span>`);
   }
 }
 
@@ -201,9 +201,9 @@ $("#new").addEventListener("click", () => newMenu());
 $("#max").addEventListener("click", () => mostPretentious());
 $("#stop").addEventListener("click", () => stopFn && stopFn());
 $("#share").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText(location.href); $("#share").textContent = "Copied"; }
+  try { await navigator.clipboard.writeText(location.href); $("#share").textContent = "Copied, discreetly"; }
   catch (e) { $("#share").textContent = "Copy the address bar"; }
-  setTimeout(() => { $("#share").textContent = "Copy link"; }, 1600);
+  setTimeout(() => { $("#share").textContent = "Share the experience"; }, 1600);
 });
 document.querySelectorAll("[data-file]").forEach((b) => b.addEventListener("click", () => { view = b.dataset.file; renderCode(); }));
 
@@ -212,13 +212,13 @@ document.querySelectorAll("[data-file]").forEach((b) => b.addEventListener("clic
     const [a, b] = await Promise.all(["menu.lp", "maximize.lp"].map((f) => fetch(f).then((r) => { if (!r.ok) throw new Error(f); return r.text(); })));
     files["menu.lp"] = a; files["maximize.lp"] = b;
   } catch (e) {
-    setStatus('<span class="pill err">Couldn\'t load the laws</span><span class="hint">This page needs to be served over HTTP.</span>');
+    setStatus('<span class="pill err">The laws could not be retrieved</span><span class="hint">This page needs to be served over HTTP.</span>');
     return;
   }
   renderCode();
   try { await getClingo(); }
   catch (e) {
-    setStatus('<span class="pill err">Couldn\'t load clingo</span><span class="hint">The solver files didn\'t load. Check your connection and reload the page.</span>');
+    setStatus('<span class="pill err">The solver is unavailable</span><span class="hint">The solver files didn\'t load. Check your connection and reload the page.</span>');
     return;
   }
   const m = /^#(\d{1,7})$/.exec(location.hash);
