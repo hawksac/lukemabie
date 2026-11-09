@@ -290,7 +290,7 @@ code, pre { font-family: var(--mono); }
 .jcard-body { padding: clamp(20px, 4vw, 40px); display: flex; flex-direction: column; gap: 14px; }
 .jcard h1 { font-size: clamp(48px, 9vw, 96px); line-height: 1; }
 .tracklist { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px dashed var(--line); }
-.tracklist a { display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--line); color: var(--ink); text-decoration: none; }
+.tracklist a { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--line); color: var(--ink); text-decoration: none; }
 .tracklist a:hover .ttl { text-decoration: underline; }
 .trk { font-family: var(--mono); font-size: 13px; color: var(--accent); }
 .yr { font-family: var(--mono); font-size: 13px; color: var(--muted); }
@@ -413,6 +413,11 @@ code, pre { font-family: var(--mono); }
 .tracklist a[class*="tone-"] { border-left: 3px solid var(--tone); padding-left: 10px; }
 .bside[class*="tone-"] .pull { border-left-color: var(--tone); }
 .bside[class*="tone-"] .miles-n { color: var(--tone-ink); }
+.studio-log { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; }
+.studio-log li { display: grid; grid-template-columns: 1fr auto; gap: 0 12px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); }
+.studio-log b { font-family: var(--display); font-weight: 400; font-size: 19px; }
+.studio-log span { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.studio-log em { grid-column: 1 / -1; font-family: var(--mono); font-style: normal; font-size: 12px; color: var(--tone-ink, var(--accent)); }
 .bside[class*="tone-"] .lazer-btn { background: var(--tone); border-color: var(--tone); color: #fff; }
 .jcard { border-color: var(--tomato); }
 .jcard-spine { background: linear-gradient(180deg, var(--tomato), var(--corn) 50%, var(--squash)); color: #fff; }
